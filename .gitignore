@@ -1,0 +1,14 @@
+# Python byte-code caches
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+
+# Qt Creator / QML
+*.qmlproject.user
+*.pro.user
+
+# OS junk
+.DS_Store
