@@ -1,0 +1,4 @@
+module Themestyles
+singleton Theme 1.0 Theme.qml
+singleton Colors 1.0 Colors.qml
+singleton Typography 1.0 Typography.qml

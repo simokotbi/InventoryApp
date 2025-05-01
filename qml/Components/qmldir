@@ -1,0 +1,7 @@
+module Components
+MainContent 1.0 MainContent.qml
+Header 1.0 Header.qml
+Sidebar 1.0 Sidebar.qml
+InputField 1.0 InputField.qml
+
+

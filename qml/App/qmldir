@@ -1,0 +1,13 @@
+module App
+Main 1.0 Main.qml
+ 
+
+# Components
+ButtonPrimary 1.0 ../Components/ButtonPrimary.qml
+InputField 1.0 ../Components/InputField.qml
+ItemCard 1.0 ../Components/ItemCard.qml
+PageContainer 1.0 ../layouts/PageContainer.qml
+
+# Pages
+
+LoginPage 1.0 LoginPage.qml
