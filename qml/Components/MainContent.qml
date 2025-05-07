@@ -8,7 +8,7 @@ import QtLocation 6.9
 
 Rectangle {
     id: content
-    color: Theme.backgroundColor
+    color: "#e3e8ed"
     radius: 8
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -19,19 +19,33 @@ Rectangle {
         font.pixelSize: Theme.headlineSize
         color: Theme.onBackground
     }
-    Plugin{
-        id:mappluginId
-        name:"osm"
-       
-     
+        
+ Plugin {
+        id: mapPlugin
+        name: "osm" // "mapboxgl", "esri", ...
+        // specify plugin parameters if necessary
+          PluginParameter {
+            name: "osm.mapping.providersrepository.disabled"
+            value: "true"
+        }
+        PluginParameter {
+            name: "osm.mapping.providersrepository.address"
+            value: "http://maps-redirect.qt.io/osm/5.6/"
+        }
     }
-   Map {
-        id: map
+
+    Map {
         anchors.fill: parent
-        plugin: mappluginId
+        plugin: mapPlugin
         center: QtPositioning.coordinate(59.91, 10.75) // Oslo
         zoomLevel: 14
-        
+    }
+
+
+        ButtonSecondary{
+            text:"testign styles"
+            
         }
+        ToggleButton{text:"testign ToggleButton"}
 
 }

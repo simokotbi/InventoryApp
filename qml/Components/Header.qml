@@ -8,7 +8,7 @@ Rectangle {
     // now Layout.fillWidth is valid
     Layout.fillWidth: true
     height: 60
-    color: "#2E3A59"
+    color: Theme.onSurface
     border.color: "#1F2738"; border.width: 1
 
     Text {
