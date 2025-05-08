@@ -15,21 +15,24 @@ Rectangle {
 
     Label {
         anchors.centerIn: parent
-       // text: //"Welcome to the Main Content!"
         font.pixelSize: Theme.headlineSize
         color: Theme.onBackground
     }
-         Column {
-            id: buttonColumn
-            anchors.fill: parent
-            anchors.margins: 1
-            spacing: 1
-          ItremCard{}
-           Card{}
-       // ButtonSecondary{
-           // text://"testign styles"
-            
-       // }
-       //ToggleButton{text:"testign ToggleButton"}//
-         }
+
+    Column {
+        id: buttonColumn
+        anchors.centerIn: parent  // Center column both horizontally and vertically
+        spacing: Theme.mediumSpacing
+
+        ItremCard {}
+        Card {}
+
+        // Uncomment if needed:
+        // ButtonSecondary {
+        //     text: "Testing styles"
+        // }
+        // ToggleButton {
+        //     text: "Testing ToggleButton"
+        // }
+    }
 }
