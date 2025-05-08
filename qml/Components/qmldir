@@ -3,5 +3,7 @@ MainContent 1.0 MainContent.qml
 Header 1.0 Header.qml
 Sidebar 1.0 Sidebar.qml
 InputField 1.0 InputField.qml
-
-
+ButtonPrimary 1.0 ButtonPrimary.qml
+ButtonSecondary 1.0 ButtonSecondary.qml
+ToggleButton 1.0 ToggleButton.qml
+SidebarButton 1.0 SidebarButton.qml

@@ -1,4 +1,3 @@
-// qml/components/Sidebar.qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
@@ -11,7 +10,13 @@ Rectangle {
     Layout.preferredWidth: 200
     Layout.fillHeight: true
     color: Theme.surfaceColor
-
+    
+      Rectangle { // Right border
+        width: 1
+        height: parent.height
+        color: "#a5b0c0"
+        anchors.right: parent.right
+    }
     // Header at the top
     Rectangle {
         id: headerRect
@@ -19,12 +24,16 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 60
-        color: "#E6AF2E"
+        color: "#fff"
+       
+        border.color: "#617079"
+        border.width: 1
+        //radius: //10
 
         Text {
             anchors.centerIn: parent
             text: qsTr("Sidebar")
-            color: Theme.onPrimary
+            color: Theme.onSecondary
             font.family: Theme.fontFamily
             font.pointSize: Theme.headlineSize
             font.bold: true
@@ -40,7 +49,7 @@ Rectangle {
             right: parent.right
             bottom: parent.bottom
         }
-        color: "#e0e2db"  // Light greenish background
+        color: "#fff" // Light greenish background
 
         Column {
             id: buttonColumn
@@ -49,53 +58,29 @@ Rectangle {
             spacing: 12
 
             // Stylish Buttons
-            Button {
-                text: qsTr("Item 1")
-                background: Rectangle {
-                    color: Theme.secondaryColor
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: qsTr("Item 1")
-                    color: Theme.onPrimary
-                    font.family: Theme.fontFamily
-                    font.pointSize: 16
-                    anchors.centerIn: parent
-                }
-                onClicked: console.log("Item 1 clicked")
+           
+  SidebarButton {
+    iconSource: "../src/airplay.svg"
+    text: "Dashboard"
+    onClicked: console.log("1 clicked")
+
+            }
+            
+ 
+           SidebarButton {
+    iconSource: "../src/folder.svg"
+    text: "Dashboard"
+    onClicked: console.log("2 clicked")
+
             }
 
-            Button {
-                text: qsTr("Item 2")
-                background: Rectangle {
-                    color: Theme.secondaryColor
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: qsTr("Item 2")
-                    color: Theme.onPrimary
-                    font.family: Theme.fontFamily
-                    font.pointSize: 16
-                    anchors.centerIn: parent
-                }
-                onClicked: console.log("Item 2 clicked")
-            }
+            SidebarButton {
+    iconSource: "../src/cloud-lightning.svg"
+    text: "Dashboard"
+    onClicked: console.log("3 clicked")
 
-            Button {
-                text: qsTr("Item 3")
-                background: Rectangle {
-                    color: Theme.secondaryColor
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: qsTr("Item 3")
-                    color: Theme.onPrimary
-                    font.family: Theme.fontFamily
-                    font.pointSize: 16
-                    anchors.centerIn: parent
-                }
-                onClicked: console.log("Item 3 clicked")
-            }
+            } 
         }
     }
 }
+  

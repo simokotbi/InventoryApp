@@ -5,10 +5,11 @@ __pycache__/
 # Virtual environments
 venv/
 env/
-
+env311/
+env311
 # Qt Creator / QML
 *.qmlproject.user
-*.pro.user
+*.pro.user 
 
 # OS junk
 .DS_Store

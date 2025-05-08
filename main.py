@@ -5,6 +5,11 @@ from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtCore import QObject, Signal, Slot
 
+from PySide6.QtLocation import QGeoServiceProvider
+from PySide6.QtPositioning import QGeoCoordinate
+
+
+
 class LoginManager(QObject):
     loginSuccess = Signal()
     loginFailed = Signal()
