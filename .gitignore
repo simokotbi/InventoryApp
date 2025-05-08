@@ -9,7 +9,7 @@ env311/
 env311
 # Qt Creator / QML
 *.qmlproject.user
-*.pro.user
+*.pro.user 
 
 # OS junk
 .DS_Store
