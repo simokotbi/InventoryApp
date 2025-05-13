@@ -5,18 +5,25 @@ import App 1.0
 import Themestyles 1.0
 import Layouts 1.0
 
+ 
+
 Rectangle {
     id: sidebar
     Layout.preferredWidth: 200
     Layout.fillHeight: true
     color: Theme.surfaceColor
-    
-      Rectangle { // Right border
+
+    signal loadDashboardPage()
+    signal loadSettingsPage()
+    signal loadReportsPage()
+
+    Rectangle { // Right border
         width: 1
         height: parent.height
         color: "#a5b0c0"
         anchors.right: parent.right
     }
+
     // Header at the top
     Rectangle {
         id: headerRect
@@ -25,10 +32,9 @@ Rectangle {
         anchors.right: parent.right
         height: 60
         color: "#fff"
-       
+
         border.color: "#617079"
         border.width: 1
-        //radius: //10
 
         Text {
             anchors.centerIn: parent
@@ -57,30 +63,26 @@ Rectangle {
             anchors.margins: 10
             spacing: 12
 
-            // Stylish Buttons
-           
-  SidebarButton {
-    iconSource: "../src/airplay.svg"
-    text: "Dashboard"
-    onClicked: console.log("1 clicked")
-
-            }
-            
- 
-           SidebarButton {
-    iconSource: "../src/folder.svg"
-    text: "Dashboard"
-    onClicked: console.log("2 clicked")
-
-            }
-
+            // Dashboard Button
             SidebarButton {
-    iconSource: "../src/cloud-lightning.svg"
-    text: "Dashboard"
-    onClicked: console.log("3 clicked")
+                iconSource: "../src/airplay.svg"
+                text: "Dashboard"
+                onClicked: loadDashboardPage()
+            }
 
-            } 
+            // Settings Button
+            SidebarButton {
+                iconSource: "../src/folder.svg"
+                text: "Settings"
+                onClicked: loadSettingsPage()
+            }
+
+            // Reports Button
+            SidebarButton {
+                iconSource: "../src/cloud-lightning.svg"
+                text: "Reports"
+                onClicked: loadReportsPage()
+            }
         }
     }
 }
-  

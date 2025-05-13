@@ -11,3 +11,4 @@ PageContainer 1.0 ../layouts/PageContainer.qml
 # Pages
 
 LoginPage 1.0 LoginPage.qml
+DashboardPage 1.0 DashboardPage.qml
