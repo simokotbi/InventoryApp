@@ -19,7 +19,7 @@ class LoginManager(QObject):
         print(f"Checking login for {username}")
         if username == "a" and password == "a":
             self.loginSuccess.emit()
-            print("hellllloooooowwww")
+           
         else:
             self.loginFailed.emit()
 

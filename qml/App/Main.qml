@@ -42,9 +42,20 @@ Page {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Rectangle {
-                        anchors.centerIn: parent
-                        MainContent { }
+                    ColumnLayout {
+                        anchors.fill: parent
+
+                        DataTable {
+                            id: dataTableComponent
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            model: ListModel {
+                                ListElement { identifier: "1"; name: "Alice"; age: "25"; country: "USA" }
+                                ListElement { identifier: "2"; name: "Bob"; age: "30"; country: "UK" }
+                                ListElement { identifier: "3"; name: "Charlie"; age: "28"; country: "Canada" }
+                                ListElement { identifier: "4"; name: "Diana"; age: "35"; country: "Germany" }
+                            }
+                        }
                     }
                 }
             }

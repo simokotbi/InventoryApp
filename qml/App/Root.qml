@@ -11,7 +11,7 @@ ApplicationWindow {
     Loader {
         id: pageLoader
         anchors.fill: parent
-        source: "LoginPage.qml"   
+        source: "LoginPage.qml" // Default page is LoginPage
     }
 
     Connections {
@@ -19,6 +19,23 @@ ApplicationWindow {
 
         function onLoginSuccess() {
             pageLoader.source = "Main.qml"; // Load main app after successful login
+        }
+    }
+
+    Connections {
+        target: pageLoader
+
+        // Connect sidebar signals to load different pages
+        function onLoadDashboardPage() {
+            pageLoader.source = "DashboardPage.qml"; // Load Dashboard page
+        }
+
+        function onLoadSettingsPage() {
+            pageLoader.source = "SettingsPage.qml"; // Load Settings page
+        }
+
+        function onLoadReportsPage() {
+            pageLoader.source = "ReportsPage.qml"; // Load Reports page
         }
     }
 }
