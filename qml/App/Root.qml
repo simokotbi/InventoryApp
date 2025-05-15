@@ -22,20 +22,14 @@ ApplicationWindow {
         }
     }
 
+    // Add a connection to handle Sidebar signals
     Connections {
-        target: pageLoader
+        target: sidebarComponent
 
-        // Connect sidebar signals to load different pages
         function onLoadDashboardPage() {
             pageLoader.source = "DashboardPage.qml"; // Load Dashboard page
         }
 
-        function onLoadSettingsPage() {
-            pageLoader.source = "SettingsPage.qml"; // Load Settings page
-        }
-
-        function onLoadReportsPage() {
-            pageLoader.source = "ReportsPage.qml"; // Load Reports page
-        }
+      
     }
 }

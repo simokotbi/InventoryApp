@@ -5,17 +5,17 @@ import App 1.0
 import Themestyles 1.0
 import Layouts 1.0
 
- 
-
 Rectangle {
     id: sidebar
     Layout.preferredWidth: 200
     Layout.fillHeight: true
     color: Theme.surfaceColor
 
+    // Define signals
     signal loadDashboardPage()
     signal loadSettingsPage()
     signal loadReportsPage()
+    signal navigateToPage(string pageName)
 
     Rectangle { // Right border
         width: 1
@@ -67,22 +67,17 @@ Rectangle {
             SidebarButton {
                 iconSource: "../src/airplay.svg"
                 text: "Dashboard"
-                onClicked: loadDashboardPage()
+                onClicked: navigateToPage("DashboardPage.qml")
+                
             }
-
-            // Settings Button
+            // ReportsPage Button
             SidebarButton {
                 iconSource: "../src/folder.svg"
-                text: "Settings"
-                onClicked: loadSettingsPage()
-            }
-
-            // Reports Button
-            SidebarButton {
-                iconSource: "../src/cloud-lightning.svg"
                 text: "Reports"
-                onClicked: loadReportsPage()
+                onClicked: navigateToPage("ReportsPage.qml")
+         
             }
+         
         }
     }
 }
