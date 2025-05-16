@@ -8,3 +8,4 @@ ButtonSecondary 1.0 ButtonSecondary.qml
 ToggleButton 1.0 ToggleButton.qml
 SidebarButton 1.0 SidebarButton.qml
 DataTable 1.0 DataTable.qml
+ItremCard 1.0 ItremCard.qml

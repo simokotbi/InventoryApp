@@ -14,6 +14,12 @@ ApplicationWindow {
         source: "LoginPage.qml" // Default page is LoginPage
     }
 
+    // Load the sidebar component
+    Loader {
+        id: sidebarLoader
+        source: "Sidebar.qml" // Ensure this is the correct path
+    }
+
     Connections {
         target: LoginManager
 
@@ -24,12 +30,9 @@ ApplicationWindow {
 
     // Add a connection to handle Sidebar signals
     Connections {
-        target: sidebarComponent
-
+        target: sidebarLoader.item // Use item property to reference the loaded Sidebar
         function onLoadDashboardPage() {
             pageLoader.source = "DashboardPage.qml"; // Load Dashboard page
         }
-
-      
     }
 }

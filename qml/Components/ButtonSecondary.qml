@@ -34,7 +34,7 @@ Button {
 
     contentItem: Text {
         text: btn.text
-        color: Theme.onSecondary
+        color: Theme.onPrimary
         font.family: Theme.fontFamily
         font.pointSize: Theme.buttonSize
         horizontalAlignment: Text.AlignHCenter

@@ -12,7 +12,7 @@ TextField {
     font.pointSize: Theme.bodySize
     
         background: Rectangle {
-             color: Theme.surfaceColor
+             color: Theme.whiteBackground
              radius: 4
         }
    
