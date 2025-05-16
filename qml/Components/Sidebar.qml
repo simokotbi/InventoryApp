@@ -17,12 +17,13 @@ Rectangle {
     signal loadReportsPage()
     signal navigateToPage(string pageName)
 
-    Rectangle { // Right border
-        width: 1
-        height: parent.height
-        color: "#a5b0c0"
-        anchors.right: parent.right
-    }
+  Rectangle { // Right border
+    width: 1
+    height: parent.height
+    color: "#F1F3F4"
+    anchors.right: parent.right
+    z: 1 // Ensure border appears above other elements
+}
 
     // Header at the top
     Rectangle {
@@ -38,7 +39,7 @@ Rectangle {
 
         Text {
             anchors.centerIn: parent
-            text: qsTr("Sidebar")
+            text: qsTr("KOTBI")
             color: Theme.onSecondary
             font.family: Theme.fontFamily
             font.pointSize: Theme.headlineSize

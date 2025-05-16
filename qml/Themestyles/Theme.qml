@@ -21,9 +21,9 @@ Item {
     property int largeSpacing: 24
 
     // Color palette
-    property color primaryColor: "#1A1A24"       // Updated primary color
-    property color primaryVariant: "#496F5D"     // Updated primary variant
-    property color secondaryColor: "#4C9F70"     // Updated secondary color
+    property color primaryColor: "#368BCA" //"#1A1A24"      // Updated primary color
+    property color primaryVariant: "#496F5D"    // Updated primary variant
+    property color secondaryColor: "#D7DABA"//"#4C9F70"     // Updated secondary color
     property color backgroundColor: "#CAFFB9" 
     property color whiteBackground: "#fff"       // Updated background color
     property color surfaceColor: "#E98A15"       // Updated surface color

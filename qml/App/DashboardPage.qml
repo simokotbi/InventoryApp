@@ -11,7 +11,7 @@ Page {
 
     Rectangle {
         anchors.fill: parent
-       color: Theme.surfaceColor
+       color: Theme.whiteBackground
 
         Text {
             anchors.centerIn: parent
