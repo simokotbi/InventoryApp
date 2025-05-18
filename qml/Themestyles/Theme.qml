@@ -6,7 +6,7 @@ Item {
     // Typography defaults
     property string fontFamily: Typography.fontFamily
     property int headingSize: Typography.headingSize
-    property int headlineSize:Typography.headlineSize
+    property int headlineSize: Typography.headlineSize
     property int bodySize: Typography.bodySize
     property int captionSize: Typography.captionSize
 
@@ -21,17 +21,17 @@ Item {
     property int largeSpacing: 24
 
     // Color palette
-     property color primaryColor: "#6200EE"
-    property color primaryVariant: "#3700B3"
-    property color secondaryColor: "#2E3A59"
-    property color backgroundColor: "#FFFFFF"
-    property color surfaceColor: "#FFFFFF"
+    property color primaryColor: "#368BCA" //"#1A1A24"      // Updated primary color
+    property color primaryVariant: "#496F5D"    // Updated primary variant
+    property color secondaryColor: "#D7DABA"//"#4C9F70"     // Updated secondary color
+    property color backgroundColor: "#CAFFB9" 
+    property color whiteBackground: "#fff"       // Updated background color
+    property color surfaceColor: "#E98A15"       // Updated surface color
     property color errorColor: "#df2935"
     property color onPrimary: "#FFFFFF"
     property color onSecondary: "#000000"
     property color onBackground: "#000000"
-    property color onSurface: "#1a1a24"
+    property color onSurface: "#1A1A24"
     property color onError: "#df2935"
-    property color test:"#c2e7da"
+    property color test: "#c2e7da"
 }
- 

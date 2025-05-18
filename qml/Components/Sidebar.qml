@@ -5,24 +5,25 @@ import App 1.0
 import Themestyles 1.0
 import Layouts 1.0
 
- 
-
 Rectangle {
     id: sidebar
     Layout.preferredWidth: 200
     Layout.fillHeight: true
     color: Theme.surfaceColor
 
+    // Define signals
     signal loadDashboardPage()
     signal loadSettingsPage()
     signal loadReportsPage()
+    signal navigateToPage(string pageName)
 
-    Rectangle { // Right border
-        width: 1
-        height: parent.height
-        color: "#a5b0c0"
-        anchors.right: parent.right
-    }
+  Rectangle { // Right border
+    width: 1
+    height: parent.height
+    color: "#F1F3F4"
+    anchors.right: parent.right
+    z: 1 // Ensure border appears above other elements
+}
 
     // Header at the top
     Rectangle {
@@ -38,7 +39,7 @@ Rectangle {
 
         Text {
             anchors.centerIn: parent
-            text: qsTr("Sidebar")
+            text: qsTr("KOTBI")
             color: Theme.onSecondary
             font.family: Theme.fontFamily
             font.pointSize: Theme.headlineSize
@@ -67,22 +68,17 @@ Rectangle {
             SidebarButton {
                 iconSource: "../src/airplay.svg"
                 text: "Dashboard"
-                onClicked: loadDashboardPage()
+                onClicked: navigateToPage("DashboardPage.qml")
+                
             }
-
-            // Settings Button
+            // ReportsPage Button
             SidebarButton {
                 iconSource: "../src/folder.svg"
-                text: "Settings"
-                onClicked: loadSettingsPage()
-            }
-
-            // Reports Button
-            SidebarButton {
-                iconSource: "../src/cloud-lightning.svg"
                 text: "Reports"
-                onClicked: loadReportsPage()
+                onClicked: navigateToPage("ReportsPage.qml")
+         
             }
+         
         }
     }
 }

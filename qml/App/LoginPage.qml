@@ -13,6 +13,11 @@ Page {
     Rectangle {
         anchors.fill: parent
         color: Theme.backgroundColor
+         ItremCard {
+        anchors.horizontalCenter: parent.horizontalCenter // Center horizontally
+        anchors.top: parent.top // Align to the top
+        anchors.topMargin: 20 // Optional: Add margin from the top
+    }
     }
 
     ColumnLayout {

@@ -8,15 +8,15 @@ Flipable {
 
     property bool flipped: false
 
-    front: Image { source: "../src/airplay.svg"; anchors.centerIn: parent }
+    front: Image { source: "../src/database.svg"; anchors.centerIn: parent }
     back: Image { source: "../src/folder.svg"; anchors.centerIn: parent }
 
     transform: Rotation {
         id: rotation
-        origin.x: flipable.width/2
-        origin.y: flipable.height/2
-        axis.x: 0; axis.y: 1; axis.z: 0     // set axis.y to 1 to rotate around y-axis
-        angle: 0    // the default angle
+        origin.x: flipable.width / 2
+        origin.y: flipable.height / 2
+        axis.x: 0; axis.y: 1; axis.z: 0 // Rotate around y-axis
+        angle: 0
     }
 
     states: State {
@@ -26,11 +26,14 @@ Flipable {
     }
 
     transitions: Transition {
-        NumberAnimation { target: rotation; property: "angle"; duration: 4000 }
+        NumberAnimation { target: rotation; property: "angle"; duration: 2000 }
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: flipable.flipped = !flipable.flipped
+    // Timer for automatic flipping
+    Timer {
+        interval: 5000 // Flip every 5 seconds
+        running: true
+        repeat: true
+        onTriggered: flipable.flipped = !flipable.flipped
     }
 }

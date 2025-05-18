@@ -1,120 +1,52 @@
+// qml/Components/DataTable.qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import Themestyles 1.0
 
 Item {
-    id: dataTable
+    id: tableRoot
+    property alias model: tableView.model
+    property var columns: []
 
-    // Default width and height
-    width: 600
-    height: 400
+    width: parent.width
+    height: 300
 
-    // Model property for external assignment
-    property alias model: tableModel.model
-
-    ColumnLayout {
+    Rectangle {
         anchors.fill: parent
-        spacing: 0
+        color: Theme.surfaceColor
 
-        // Table Header
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 0
+        TableView {
+            id: tableView
+            anchors.fill: parent
+            clip: true
+            rowHeightProvider: function(row) { return 40 }
 
-            Rectangle {
-                Layout.fillWidth: true
-                height: 40
-                color: "darkgray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "ID"
-                    font.bold: true
-                    color: "white"
-                }
-            }
-            Rectangle {
-                Layout.fillWidth: true
-                height: 40
-                color: "darkgray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "Name"
-                    font.bold: true
-                    color: "white"
-                }
-            }
-            Rectangle {
-                Layout.fillWidth: true
-                height: 40
-                color: "darkgray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "Age"
-                    font.bold: true
-                    color: "white"
-                }
-            }
-            Rectangle {
-                Layout.fillWidth: true
-                height: 40
-                color: "darkgray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "Country"
-                    font.bold: true
-                    color: "white"
-                }
-            }
-        }
-
-        // Table Content
-        Repeater {
-            id: tableModel
-            model: model
-
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 0
+            delegate: Item {
+                implicitHeight: 40
+                implicitWidth: 100
 
                 Rectangle {
-                    Layout.fillWidth: true
-                    height: 40
-                    color: index % 2 === 0 ? "lightgray" : "white"
-                    border.color: "gray"
+                    anchors.fill: parent
+                    color: index % 2 === 0 ? "#f5f5f5" : "#ffffff"
+
                     Text {
                         anchors.centerIn: parent
-                        text: modelData.identifier
+                        text: styleData.value
+                        font.pixelSize: Theme.bodySize
+                        color: Theme.onBackground
                     }
                 }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 40
-                    color: index % 2 === 0 ? "lightgray" : "white"
-                    border.color: "gray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: modelData.name
-                    }
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 40
-                    color: index % 2 === 0 ? "lightgray" : "white"
-                    border.color: "gray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: modelData.age
-                    }
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 40
-                    color: index % 2 === 0 ? "lightgray" : "white"
-                    border.color: "gray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: modelData.country
-                    }
+            }
+
+            Component.onCompleted: {
+                for (var i = 0; i < columns.length; i++) {
+                    var col = columns[i];
+                    tableView.addColumn({
+                        role: col.role,
+                        title: col.title,
+                        width: col.width || 150
+                    });
                 }
             }
         }

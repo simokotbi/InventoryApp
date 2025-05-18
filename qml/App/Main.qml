@@ -10,55 +10,29 @@ Page {
     height: 600
     title: qsTr("Inventory")
 
-    Item {
-        id: fadeWrapper
+    ColumnLayout {
         anchors.fill: parent
-        opacity: 0.0
 
-        // Fade-in animation when loaded
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 400
-                easing.type: Easing.InOutQuad
+        Header { Layout.fillWidth: true }
+
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Sidebar {
+                onNavigateToPage: (pageName) => {
+                    contentLoader.source = pageName
+                }
             }
-        }
 
-        Component.onCompleted: {
-            fadeWrapper.opacity = 1.0
-        }
-
-        ColumnLayout {
-            anchors.fill: parent
-
-            Header { Layout.fillWidth: true }
-
-            RowLayout {
+            // This replaces the entire main content area
+            Loader {
+                id: contentLoader
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
-                Sidebar { }
-
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    ColumnLayout {
-                        anchors.fill: parent
-
-                        DataTable {
-                            id: dataTableComponent
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            model: ListModel {
-                                ListElement { identifier: "1"; name: "Alice"; age: "25"; country: "USA" }
-                                ListElement { identifier: "2"; name: "Bob"; age: "30"; country: "UK" }
-                                ListElement { identifier: "3"; name: "Charlie"; age: "28"; country: "Canada" }
-                                ListElement { identifier: "4"; name: "Diana"; age: "35"; country: "Germany" }
-                            }
-                        }
-                    }
-                }
+                source: "MainContent.qml"  // Default page
             }
         }
     }
+
 }
