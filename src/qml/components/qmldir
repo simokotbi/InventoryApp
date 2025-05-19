@@ -1,0 +1,4 @@
+module Components
+CustomInput 1.0 CustomInput.qml
+CustomButton 1.0 CustomButton.qml
+NotificationPopup 1.0 NotificationPopup.qml
