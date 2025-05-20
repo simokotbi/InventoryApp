@@ -1,8 +1,9 @@
 import QtQuick
+import QtQuick.Controls.Material
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../styles"
-import "../components"
+import Theme
+import "../components" as Components
 
 Window {
     id: window
@@ -12,6 +13,13 @@ Window {
     color: Theme.backgroundColor
     flags: Qt.Dialog
     modality: Qt.ApplicationModal
+
+    Material.theme: Material.Light
+    Material.accent: Theme.primaryColor
+
+    Components.NotificationPopup {
+        id: notification
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -25,55 +33,130 @@ Window {
             color: Theme.textColor
         }
 
-        CustomInput {
-            id: emailInput
-            label: "Email"
-            placeholderText: "Enter new email"
+        // Current User Info
+        Rectangle {
             Layout.fillWidth: true
+            height: userInfoColumn.height + (Theme.defaultPadding * 2)
+            color: Qt.lighter(Theme.backgroundColor, 1.02)
+            border.color: Qt.lighter(Theme.textColor, 1.8)
+            border.width: 1
+            radius: Theme.cornerRadius
+
+            ColumnLayout {
+                id: userInfoColumn
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: Theme.defaultPadding
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: Theme.defaultSpacing
+
+                Text {
+                    text: "Username: " + authHandler.currentUsername
+                    font.family: Theme.fontFamily
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.textColor
+                }
+
+                Text {
+                    text: "Email: " + authHandler.currentEmail
+                    font.family: Theme.fontFamily
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.textColor
+                }
+            }
         }
 
-        CustomInput {
-            id: currentPasswordInput
-            label: "Current Password"
-            placeholderText: "Enter current password"
-            isPassword: true
+        // Email Update Section
+        GroupBox {
             Layout.fillWidth: true
+            title: "Update Email"
+            
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: Theme.defaultSpacing
+
+                Components.CustomInput {
+                    id: newEmailInput
+                    label: "New Email"
+                    placeholderText: "Enter new email address"
+                    Layout.fillWidth: true
+                }
+
+                Components.CustomButton {
+                    text: "Update Email"
+                    Layout.fillWidth: true
+                    onClicked: {
+                        if (!newEmailInput.text) {
+                            notification.show("Please enter a new email address", true)
+                            return
+                        }
+                        const result = authHandler.updateEmail(newEmailInput.text)
+                        notification.show(result.message, !result.success)
+                        if (result.success) {
+                            newEmailInput.text = ""
+                        }
+                    }
+                }
+            }
         }
 
-        CustomInput {
-            id: newPasswordInput
-            label: "New Password"
-            placeholderText: "Enter new password"
-            isPassword: true
+        // Password Update Section
+        GroupBox {
             Layout.fillWidth: true
-        }
+            title: "Update Password"
+            
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: Theme.defaultSpacing
 
-        CustomInput {
-            id: confirmPasswordInput
-            label: "Confirm New Password"
-            placeholderText: "Confirm new password"
-            isPassword: true
-            Layout.fillWidth: true
-        }
+                Components.CustomInput {
+                    id: currentPasswordInput
+                    label: "Current Password"
+                    placeholderText: "Enter current password"
+                    isPassword: true
+                    Layout.fillWidth: true
+                }
 
-        Text {
-            id: errorText
-            visible: false
-            color: Theme.errorColor
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeSmall
-            Layout.fillWidth: true
-            wrapMode: Text.WordWrap
-        }
+                Components.CustomInput {
+                    id: newPasswordInput
+                    label: "New Password"
+                    placeholderText: "Enter new password"
+                    isPassword: true
+                    Layout.fillWidth: true
+                }
 
-        Text {
-            id: successText
-            visible: false
-            color: Theme.successColor
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeSmall
-            Layout.fillWidth: true
-            wrapMode: Text.WordWrap
+                Components.CustomInput {
+                    id: confirmPasswordInput
+                    label: "Confirm New Password"
+                    placeholderText: "Confirm new password"
+                    isPassword: true
+                    Layout.fillWidth: true
+                }
+
+                Components.CustomButton {
+                    text: "Update Password"
+                    Layout.fillWidth: true
+                    onClicked: {
+                        if (!currentPasswordInput.text || !newPasswordInput.text || !confirmPasswordInput.text) {
+                            notification.show("Please fill in all password fields", true)
+                            return
+                        }
+                        
+                        if (newPasswordInput.text !== confirmPasswordInput.text) {
+                            notification.show("New passwords do not match", true)
+                            return
+                        }
+
+                        const result = authHandler.updatePassword(currentPasswordInput.text, newPasswordInput.text)
+                        notification.show(result.message, !result.success)
+                        if (result.success) {
+                            currentPasswordInput.text = ""
+                            newPasswordInput.text = ""
+                            confirmPasswordInput.text = ""
+                        }
+                    }
+                }
+            }
         }
 
         Item { Layout.fillHeight: true }
@@ -82,36 +165,22 @@ Window {
             Layout.alignment: Qt.AlignRight
             spacing: Theme.defaultSpacing
 
-            CustomButton {
-                text: "Cancel"
+            Components.CustomButton {
+                text: "Close"
                 outlined: true
                 onClicked: window.close()
             }
+        }
+    }
 
-            CustomButton {
-                text: "Save Changes"
-                onClicked: {
-                    errorText.visible = false;
-                    successText.visible = false;
-
-                    if (newPasswordInput.text || confirmPasswordInput.text) {
-                        if (!currentPasswordInput.text) {
-                            errorText.text = "Current password is required";
-                            errorText.visible = true;
-                            return;
-                        }
-                        if (newPasswordInput.text !== confirmPasswordInput.text) {
-                            errorText.text = "New passwords do not match";
-                            errorText.visible = true;
-                            return;
-                        }
-                    }
-
-                    // TODO: Implement actual password change logic through Python backend
-                    successText.text = "Settings updated successfully";
-                    successText.visible = true;
-                }
-            }
+    Connections {
+        target: authHandler
+        function onSettingsUpdated(success, message) {
+            notification.show(message, !success)
+        }
+        function onUserDataChanged(username, email) {
+            // Force a re-render of the current user info
+            window.update()
         }
     }
 }

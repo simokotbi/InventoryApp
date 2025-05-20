@@ -112,3 +112,67 @@ class AuthService:
         except Exception as e:
             logger.error(f"Login error: {str(e)}", exc_info=True)
             return False, f"Login failed: {str(e)}", None
+
+    def update_email(self, user_id: int, new_email: str) -> Tuple[bool, str]:
+        """Update user's email address with validation."""
+        try:
+            # Validate new email
+            email_valid, email_error = validate_email(new_email)
+            if not email_valid:
+                logger.warning(f"Invalid email update attempt: {email_error}")
+                return False, email_error
+
+            # Check if email is already in use
+            if self.database.get_user_by_email(new_email):
+                logger.warning(f"Email update attempt with existing email: {new_email}")
+                return False, "Email already exists"
+
+            # Update email
+            if self.database.update_user_email(user_id, new_email):
+                logger.info(f"Successfully updated email for user {user_id}")
+                return True, "Email updated successfully"
+            return False, "Failed to update email"
+
+        except Exception as e:
+            logger.error(f"Email update error: {str(e)}", exc_info=True)
+            return False, f"Email update failed: {str(e)}"
+
+    def update_password(self, user_id: int, current_password: str, new_password: str) -> Tuple[bool, str]:
+        """Update user's password with validation."""
+        try:
+            # Get user data to verify current password
+            user = None
+            with self.database._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+                user = cursor.fetchone()
+
+            if not user:
+                logger.warning(f"Password update attempt for non-existent user: {user_id}")
+                return False, "User not found"
+
+            # Verify current password
+            if not bcrypt.checkpw(
+                current_password.encode('utf-8'),
+                user['password_hash'].encode('utf-8')
+            ):
+                logger.warning(f"Invalid current password in password update attempt for user {user_id}")
+                return False, "Current password is incorrect"
+
+            # Validate new password
+            min_password_length = config.get('auth.min_password_length', 8)
+            password_valid, password_error = validate_password(new_password, min_password_length)
+            if not password_valid:
+                logger.warning("Invalid new password attempt")
+                return False, password_error
+
+            # Hash and update new password
+            new_password_hash = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+            if self.database.update_user_password(user_id, new_password_hash.decode('utf-8')):
+                logger.info(f"Successfully updated password for user {user_id}")
+                return True, "Password updated successfully"
+            return False, "Failed to update password"
+
+        except Exception as e:
+            logger.error(f"Password update error: {str(e)}", exc_info=True)
+            return False, f"Password update failed: {str(e)}"

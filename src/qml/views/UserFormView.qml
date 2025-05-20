@@ -5,7 +5,10 @@ import "../styles"
 import "../components"
 
 Rectangle {
+    id: root
     color: "white"
+
+    signal formSubmitted(var formData)
     
     ColumnLayout {
         anchors.fill: parent
@@ -24,6 +27,7 @@ Rectangle {
             label: "Full Name"
             placeholderText: "Enter your full name"
             Layout.fillWidth: true
+            onAccepted: dobInput.forceActiveFocus()
         }
 
         CustomInput {
@@ -31,6 +35,7 @@ Rectangle {
             label: "Date of Birth"
             placeholderText: "YYYY-MM-DD"
             Layout.fillWidth: true
+            onAccepted: departmentCombo.forceActiveFocus()
         }
 
         ComboBox {
@@ -52,32 +57,33 @@ Rectangle {
             font.family: Theme.fontFamily
         }
 
-        Text {
-            id: successText
-            visible: false
-            color: Theme.successColor
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSizeMedium
-            Layout.fillWidth: true
-        }
-
         CustomButton {
             text: "Submit"
             Layout.fillWidth: true
             onClicked: {
-                successText.text = "Form submitted successfully!";
-                successText.visible = true;
-                console.log("Form Data:", JSON.stringify({
+                const formData = {
                     fullName: fullNameInput.text,
                     dob: dobInput.text,
                     department: departmentCombo.currentText,
                     newsletter: newsletterCheck.checked
-                }, null, 2));
+                };
+                root.formSubmitted(formData);
+                
+                // Clear form after submission
+                fullNameInput.text = "";
+                dobInput.text = "";
+                departmentCombo.currentIndex = 0;
+                newsletterCheck.checked = false;
+                fullNameInput.forceActiveFocus();
             }
         }
 
         Item {
             Layout.fillHeight: true
         }
+    }
+
+    Component.onCompleted: {
+        fullNameInput.forceActiveFocus()
     }
 }

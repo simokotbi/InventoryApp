@@ -109,10 +109,17 @@ ApplicationWindow {
                 notification.show(message, false)
                 var component = Qt.createComponent("MainApplicationPage.qml")
                 if (component.status === Component.Ready) {
-                    var mainWindow = component.createObject(null)
-                    window.close()
+                    var mainWindow = component.createObject(window , {
+                        "x": window.x,
+                        "y": window.y,
+                        "width": 1024,
+                        "height": 768
+                    })
+                    window.hide()
+                    mainWindow.show()
                 } else if (component.status === Component.Error) {
                     notification.show("Error loading main page: " + component.errorString(), true)
+                    console.error("Error loading MainApplicationPage:", component.errorString())
                 }
             }
         }

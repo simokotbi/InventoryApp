@@ -1,0 +1,4 @@
+module Views
+AnalyticsView 1.0 AnalyticsView.qml
+DashboardView 1.0 DashboardView.qml
+UserFormView 1.0 UserFormView.qml
