@@ -1,0 +1,17 @@
+module Components
+
+CustomerDialog 1.0 CustomerDialog.qml
+CustomerDetailsDialog 1.0 CustomerDetailsDialog.qml
+ProductDialog 1.0 ProductDialog.qml
+NewSaleDialog 1.0 NewSaleDialog.qml
+SaleDetailsDialog 1.0 SaleDetailsDialog.qml
+StockAdjustmentDialog 1.0 StockAdjustmentDialog.qml
+MovementHistoryDialog 1.0 MovementHistoryDialog.qml
+MessagePopup 1.0 MessagePopup.qml
+NavigationItem 1.0 NavigationItem.qml
+StatsCard 1.0 StatsCard.qml
+SalesReportComponent 1.0 SalesReportComponent.qml
+ProductsReportComponent 1.0 ProductsReportComponent.qml
+CustomersReportComponent 1.0 CustomersReportComponent.qml
+InventoryReportComponent 1.0 InventoryReportComponent.qml
+FinancialReportComponent 1.0 FinancialReportComponent.qml

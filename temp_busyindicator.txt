@@ -1,0 +1,6 @@
+            // Loading indicator
+            BusyIndicator {
+                Layout.alignment: Qt.AlignHCenter
+                running: true
+                Material.accent: themeManager.primaryColor
+            }

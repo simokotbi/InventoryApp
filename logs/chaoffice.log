@@ -1,0 +1,178 @@
+2025-05-25 14:53:25 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 14:53:25 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 14:53:25 | ERROR    | __main__:run:286 | Failed to start application: SyncManager.__init__() got an unexpected keyword argument 'auth_api_client'
+2025-05-25 14:53:25 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
+2025-05-25 14:54:00 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 14:54:00 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 14:54:00 | INFO     | __main__:initialize_api_clients:136 | API clients initialized successfully
+2025-05-25 14:54:00 | ERROR    | __main__:run:285 | Failed to start application: AuthService.__init__() got an unexpected keyword argument 'local_db_manager'
+2025-05-25 14:54:00 | INFO     | __main__:cleanup:296 | ChaoOffice application shutting down
+2025-05-25 14:55:47 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 14:55:47 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 14:55:47 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 14:55:47 | ERROR    | __main__:run:286 | Failed to start application: 'ConfigManager' object has no attribute 'get_setting'
+2025-05-25 14:55:47 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
+2025-05-25 14:57:03 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 14:57:03 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 14:57:03 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 14:57:03 | ERROR    | __main__:run:286 | Failed to start application: 'ConfigManager' object has no attribute 'update_setting'
+2025-05-25 14:57:03 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
+2025-05-25 16:38:24 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:38:24 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:38:24 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:38:24 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:38:24 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:38:24 | ERROR    | __main__:run:286 | Failed to start application: ProductHandler.__init__() missing 1 required positional argument: 'auth_service'
+2025-05-25 16:38:24 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
+2025-05-25 16:38:58 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:38:58 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:38:58 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:38:58 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:38:58 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:38:58 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:38:58 | ERROR    | __main__:run:285 | Failed to start application: Callback (<function ChaoOfficeApplication.register_qml_types.<locals>.create_theme_singleton at 0x00000213E14CC2C0>) has 2 parameter(s), expected one.
+2025-05-25 16:38:58 | INFO     | __main__:cleanup:296 | ChaoOffice application shutting down
+2025-05-25 16:39:28 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:39:28 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:39:28 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:39:28 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:39:28 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:39:28 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:39:28 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
+2025-05-25 16:39:28 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 16:39:28 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
+2025-05-25 16:39:59 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:39:59 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:39:59 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:39:59 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:39:59 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:39:59 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:39:59 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
+2025-05-25 16:39:59 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 16:39:59 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
+2025-05-25 16:41:44 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:41:44 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:41:44 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:41:44 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:41:44 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:41:44 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:41:44 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
+2025-05-25 16:41:44 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 16:41:44 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
+2025-05-25 16:52:32 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:52:32 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:52:32 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:52:32 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:52:32 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:52:32 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:52:32 | INFO     | main:register_qml_types:204 | QML types registered successfully
+2025-05-25 16:52:32 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 16:52:32 | ERROR    | main:load_main_qml:238 | Failed to load QML file
+2025-05-25 16:59:39 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 16:59:39 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 16:59:39 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 16:59:39 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 16:59:39 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 16:59:39 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 16:59:39 | INFO     | main:register_qml_types:204 | QML types registered successfully
+2025-05-25 16:59:39 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 16:59:39 | ERROR    | main:load_main_qml:238 | Failed to load QML file
+2025-05-25 17:00:40 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 17:00:40 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 17:00:40 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 17:00:40 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 17:00:40 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 17:00:40 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 17:00:40 | INFO     | main:register_qml_types:204 | QML types registered successfully
+2025-05-25 17:00:40 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 17:00:41 | ERROR    | main:load_main_qml:238 | Failed to load QML file
+2025-05-25 17:05:39 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 17:05:39 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 17:05:39 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 17:05:39 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 17:05:39 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 17:05:39 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 17:05:39 | INFO     | main:register_qml_types:204 | QML types registered successfully
+2025-05-25 17:05:39 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
+2025-05-25 17:05:40 | ERROR    | main:load_main_qml:238 | Failed to load QML file
+2025-05-25 17:10:27 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 17:10:27 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 17:10:27 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 17:10:27 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 17:10:27 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 17:10:27 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 17:10:27 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 17:10:27 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 17:10:28 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 17:11:53 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 17:11:53 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 17:11:53 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 17:11:53 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 17:11:53 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 17:11:53 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 17:11:53 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 17:11:53 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 17:11:53 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 17:54:17 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 17:54:17 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 17:54:17 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 17:54:17 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 17:54:17 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 17:54:17 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 17:54:17 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 17:54:17 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 17:54:18 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:19:48 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:19:48 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:19:48 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:19:48 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:19:48 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:19:48 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:19:48 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:19:48 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:19:49 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:21:09 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:21:09 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:21:09 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:21:09 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:21:09 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:21:09 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:21:09 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:21:09 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:21:09 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:27:25 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:27:25 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:27:25 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:27:25 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:27:25 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:27:25 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:27:25 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:27:25 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:27:25 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:27:37 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:27:37 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:27:37 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:27:37 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:27:37 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:27:37 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:27:37 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:27:37 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:27:38 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:28:44 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:28:44 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:28:44 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:28:44 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:28:44 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:28:44 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:28:44 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:28:44 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:28:44 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 18:30:18 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
+2025-05-25 18:30:18 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
+2025-05-25 18:30:18 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
+2025-05-25 18:30:18 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
+2025-05-25 18:30:18 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
+2025-05-25 18:30:18 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
+2025-05-25 18:30:18 | INFO     | main:register_qml_types:207 | QML types registered successfully
+2025-05-25 18:30:18 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
+2025-05-25 18:30:19 | ERROR    | main:load_main_qml:241 | Failed to load QML file

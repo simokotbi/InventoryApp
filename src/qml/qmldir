@@ -1,0 +1,35 @@
+module BusinessApp
+typeinfo BusinessApp.qmltypes
+
+# Screens
+LoadingScreen 1.0 screens/LoadingScreen.qml
+LoginScreen 1.0 screens/LoginScreen.qml
+MainApplication 1.0 screens/MainApplication.qml
+
+# Views
+DashboardView 1.0 views/DashboardView.qml
+ProductsView 1.0 views/ProductsView.qml
+CustomersView 1.0 views/CustomersView.qml
+SalesView 1.0 views/SalesView.qml
+InventoryView 1.0 views/InventoryView.qml
+ReportsView 1.0 views/ReportsView.qml
+SettingsView 1.0 views/SettingsView.qml
+
+# Components
+CustomerDialog 1.0 components/CustomerDialog.qml
+CustomerDetailsDialog 1.0 components/CustomerDetailsDialog.qml
+ProductDialog 1.0 components/ProductDialog.qml
+NewSaleDialog 1.0 components/NewSaleDialog.qml
+SaleDetailsDialog 1.0 components/SaleDetailsDialog.qml
+StockAdjustmentDialog 1.0 components/StockAdjustmentDialog.qml
+MovementHistoryDialog 1.0 components/MovementHistoryDialog.qml
+MessagePopup 1.0 components/MessagePopup.qml
+NavigationItem 1.0 components/NavigationItem.qml
+StatsCard 1.0 components/StatsCard.qml
+
+# Report Components
+SalesReportComponent 1.0 components/SalesReportComponent.qml
+ProductsReportComponent 1.0 components/ProductsReportComponent.qml
+CustomersReportComponent 1.0 components/CustomersReportComponent.qml
+InventoryReportComponent 1.0 components/InventoryReportComponent.qml
+FinancialReportComponent 1.0 components/FinancialReportComponent.qml
