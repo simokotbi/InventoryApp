@@ -1,277 +1,238 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls.Material 2.15
-// import BusinessApp 1.0  // Removed - using context properties
+import "../styles"
+import "../components"
 
-ScrollView {
-    id: dashboardView
+Rectangle {
+    id: root
     
-    property var dashboardData: reportsHandler.dashboardData
+    property bool isOnlineMode: true
     
-    Component.onCompleted: {
-        reportsHandler.loadDashboardData()
-    }
+    color: Theme.backgroundColor
     
-    ColumnLayout {
-        width: parent.width
-        spacing: 24
+    ScrollView {
+        anchors.fill: parent
+        anchors.margins: Theme.spacing * 2
         
-        // Header
-        RowLayout {
-            Layout.fillWidth: true
+        ColumnLayout {
+            width: parent.width
+            spacing: Theme.spacing * 2
             
+            // Header
             Text {
                 text: "Dashboard"
-                font.pixelSize: 28
-                font.bold: true
-                color: themeManager.textColor
+                font.pixelSize: Theme.fontSizeXLarge
+                font.weight: Font.Bold
+                color: Theme.textColor
                 Layout.fillWidth: true
             }
             
-            Text {
-                text: new Date().toLocaleDateString()
-                font.pixelSize: 14
-                color: themeManager.secondaryTextColor
-            }
-        }
-        
-        // Stats cards
-        GridLayout {
-            Layout.fillWidth: true
-            columns: 4
-            columnSpacing: 16
-            rowSpacing: 16
-            
-            // Total Sales
-            StatsCard {
+            // Stats cards
+            GridLayout {
+                columns: width > 800 ? 4 : 2
+                rowSpacing: Theme.spacing
+                columnSpacing: Theme.spacing
                 Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                title: "Total Sales"
-                value: dashboardData ? "$" + (dashboardData.total_sales || 0).toLocaleString() : "$0"
-                icon: "💰"
-                color: themeManager.primaryColor
-                change: dashboardData ? dashboardData.sales_change || 0 : 0
-            }
-            
-            // Total Products
-            StatsCard {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                title: "Products"
-                value: dashboardData ? (dashboardData.total_products || 0).toString() : "0"
-                icon: "📦"
-                color: themeManager.accentColor
-                change: dashboardData ? dashboardData.products_change || 0 : 0
-            }
-            
-            // Total Customers
-            StatsCard {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                title: "Customers"
-                value: dashboardData ? (dashboardData.total_customers || 0).toString() : "0"
-                icon: "👥"
-                color: "#FF9800"
-                change: dashboardData ? dashboardData.customers_change || 0 : 0
-            }
-            
-            // Low Stock Items
-            StatsCard {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                title: "Low Stock"
-                value: dashboardData ? (dashboardData.low_stock_items || 0).toString() : "0"
-                icon: "⚠️"
-                color: themeManager.errorColor
-                isWarning: true
-            }
-        }
-        
-        // Charts and recent activity
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 300
-            spacing: 16
-            
-            // Sales chart placeholder
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: themeManager.surfaceColor
-                border.color: themeManager.dividerColor
-                border.width: 1
-                radius: 8
                 
-                ColumnLayout {
-                    anchors.fill: parent
-                    anchors.margins: 16
-                    
-                    Text {
-                        text: "Sales Overview"
-                        font.pixelSize: 18
-                        font.bold: true
-                        color: themeManager.textColor
-                    }
-                    
-                    Rectangle {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        
-                        Text {
-                            anchors.centerIn: parent
-                            text: "📈 Chart Coming Soon"
-                            font.pixelSize: 24
-                            color: themeManager.secondaryTextColor
-                        }
-                    }
-                }
-            }
-            
-            // Recent sales
-            Rectangle {
-                Layout.preferredWidth: 300
-                Layout.fillHeight: true
-                color: themeManager.surfaceColor
-                border.color: themeManager.dividerColor
-                border.width: 1
-                radius: 8
-                
-                ColumnLayout {
-                    anchors.fill: parent
-                    anchors.margins: 16
-                    spacing: 8
-                    
-                    Text {
-                        text: "Recent Sales"
-                        font.pixelSize: 18
-                        font.bold: true
-                        color: themeManager.textColor
-                    }
-                    
-                    ListView {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        
-                        model: dashboardData ? dashboardData.recent_sales || [] : []
-                        
-                        delegate: Rectangle {
-                            width: parent.width
-                            height: 60
-                            color: "transparent"
-                            border.color: themeManager.dividerColor
-                            border.width: index < parent.count - 1 ? 1 : 0
-                            
-                            RowLayout {
-                                anchors.fill: parent
-                                anchors.margins: 8
-                                spacing: 8
-                                
-                                Rectangle {
-                                    Layout.preferredWidth: 40
-                                    Layout.preferredHeight: 40
-                                    color: themeManager.primaryColor
-                                    radius: 20
-                                    
-                                    Text {
-                                        anchors.centerIn: parent
-                                        text: "💰"
-                                        font.pixelSize: 16
-                                    }
-                                }
-                                
-                                ColumnLayout {
-                                    Layout.fillWidth: true
-                                    spacing: 2
-                                    
-                                    Text {
-                                        text: modelData.customer_name || "Unknown Customer"
-                                        font.pixelSize: 14
-                                        font.bold: true
-                                        color: themeManager.textColor
-                                    }
-                                    
-                                    Text {
-                                        text: "$" + (modelData.total || 0).toFixed(2)
-                                        font.pixelSize: 12
-                                        color: themeManager.secondaryTextColor
-                                    }
-                                }
-                                
-                                Text {
-                                    text: new Date(modelData.created_at).toLocaleDateString()
-                                    font.pixelSize: 10
-                                    color: themeManager.secondaryTextColor
-                                }
-                            }
-                        }
-                        
-                        // Empty state
-                        Text {
-                            visible: parent.count === 0
-                            anchors.centerIn: parent
-                            text: "No recent sales"
-                            font.pixelSize: 14
-                            color: themeManager.secondaryTextColor
-                        }
-                    }
-                }
-            }
-        }
-        
-        // Quick actions
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 100
-            color: themeManager.surfaceColor
-            border.color: themeManager.dividerColor
-            border.width: 1
-            radius: 8
-            
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 16
-                spacing: 16
-                
-                Text {
-                    text: "Quick Actions"
-                    font.pixelSize: 18
-                    font.bold: true
-                    color: themeManager.textColor
-                }
-                
-                Item {
+                StatsCard {
+                    title: "Total Products"
+                    value: "156"
+                    icon: "qrc:/assets/icons/package.svg"
+                    color: Theme.primaryColor
                     Layout.fillWidth: true
                 }
                 
-                Button {
-                    text: "New Sale"
-                    Material.background: themeManager.primaryColor
-                    Material.foreground: "white"
-                    onClicked: {
-                        // Navigate to sales view
-                        parent.parent.parent.parent.currentView = "sales"
-                    }
+                StatsCard {
+                    title: "Today's Sales"
+                    value: root.isOnlineMode ? "$2,450" : "Offline"
+                    icon: "qrc:/assets/icons/dollar-sign.svg"
+                    color: "#4CAF50"
+                    enabled: root.isOnlineMode
+                    Layout.fillWidth: true
                 }
                 
-                Button {
-                    text: "Add Product"
-                    Material.background: themeManager.accentColor
-                    Material.foreground: "white"
-                    onClicked: {
-                        // Navigate to products view
-                        parent.parent.parent.parent.currentView = "products"
-                    }
+                StatsCard {
+                    title: "Active Orders"
+                    value: root.isOnlineMode ? "23" : "Offline"
+                    icon: "qrc:/assets/icons/shopping-cart.svg"
+                    color: "#FF9800"
+                    enabled: root.isOnlineMode
+                    Layout.fillWidth: true
                 }
                 
-                Button {
-                    text: "Add Customer"
-                    Material.background: "#FF9800"
-                    Material.foreground: "white"
-                    onClicked: {
-                        // Navigate to customers view
-                        parent.parent.parent.parent.currentView = "customers"
+                StatsCard {
+                    title: "Low Stock Items"
+                    value: "8"
+                    icon: "qrc:/assets/icons/alert-triangle.svg"
+                    color: "#F44336"
+                    Layout.fillWidth: true
+                }
+            }
+            
+            // Quick actions
+            GroupBox {
+                title: "Quick Actions"
+                Layout.fillWidth: true
+                
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: Theme.spacing
+                      CustomButton {
+                        text: "Add Product"
+                        variant: "primary"
+                        Layout.preferredWidth: 150
+                        onClicked: console.log("Add product clicked")
+                    }
+                    
+                    CustomButton {
+                        text: "New Sale"
+                        variant: "secondary"
+                        enabled: root.isOnlineMode
+                        Layout.preferredWidth: 150
+                        onClicked: console.log("New sale clicked")
+                    }
+                    
+                    CustomButton {
+                        text: "Sync Data"
+                        primary: false
+                        enabled: !root.isOnlineMode
+                        Layout.preferredWidth: 150
+                        onClicked: console.log("Sync data clicked")
+                    }
+                    
+                    Item { Layout.fillWidth: true }
+                }
+            }
+            
+            // Recent activity
+            GroupBox {
+                title: "Recent Activity"
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                
+                ListView {
+                    anchors.fill: parent
+                    model: ListModel {
+                        ListElement {
+                            type: "product"
+                            title: "New product added"
+                            description: "Gaming Mouse X1"
+                            time: "2 minutes ago"
+                            icon: "qrc:/assets/icons/plus.svg"
+                        }
+                        ListElement {
+                            type: "sale"
+                            title: "Sale completed"
+                            description: "$45.99 - Wireless Keyboard"
+                            time: "15 minutes ago"
+                            icon: "qrc:/assets/icons/dollar-sign.svg"
+                        }
+                        ListElement {
+                            type: "stock"
+                            title: "Low stock alert"
+                            description: "USB Cable - Only 5 left"
+                            time: "1 hour ago"
+                            icon: "qrc:/assets/icons/alert-triangle.svg"
+                        }
+                        ListElement {
+                            type: "sync"
+                            title: "Data synchronized"
+                            description: "Local database updated"
+                            time: "2 hours ago"
+                            icon: "qrc:/assets/icons/refresh-cw.svg"
+                        }
+                    }
+                    
+                    delegate: Rectangle {
+                        width: ListView.view.width
+                        height: 60
+                        color: index % 2 === 0 ? "transparent" : Theme.alternateBackgroundColor
+                        
+                        Row {
+                            anchors.left: parent.left
+                            anchors.leftMargin: Theme.spacing
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: Theme.spacing
+                            
+                            Rectangle {
+                                width: 40
+                                height: 40
+                                radius: 20
+                                color: {
+                                    switch(model.type) {
+                                        case "product": return Theme.primaryColor
+                                        case "sale": return "#4CAF50"
+                                        case "stock": return "#F44336"
+                                        case "sync": return "#2196F3"
+                                        default: return Theme.textColorSecondary
+                                    }
+                                }
+                                anchors.verticalCenter: parent.verticalCenter
+                                
+                                SvgIcon {
+                                    anchors.centerIn: parent
+                                    source: model.icon
+                                    size: 20
+                                    color: "white"
+                                }
+                            }
+                            
+                            Column {
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: 2
+                                
+                                Text {
+                                    text: model.title
+                                    font.pixelSize: Theme.fontSize
+                                    font.weight: Font.Medium
+                                    color: Theme.textColor
+                                }
+                                
+                                Text {
+                                    text: model.description
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    color: Theme.textColorSecondary
+                                }
+                            }
+                            
+                            Item { width: 20 }
+                            
+                            Text {
+                                text: model.time
+                                font.pixelSize: Theme.fontSizeSmall
+                                color: Theme.textColorSecondary
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                    }
+                    
+                    // Empty state
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width: parent.width
+                        height: 150
+                        color: "transparent"
+                        visible: parent.count === 0
+                        
+                        Column {
+                            anchors.centerIn: parent
+                            spacing: Theme.spacing
+                            
+                            SvgIcon {
+                                source: "qrc:/assets/icons/activity.svg"
+                                size: 48
+                                color: Theme.textColorSecondary
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                            
+                            Text {
+                                text: "No recent activity"
+                                font.pixelSize: Theme.fontSize
+                                color: Theme.textColorSecondary
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                        }
                     }
                 }
             }

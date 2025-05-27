@@ -1,116 +1,158 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls.Material 2.15
-// import BusinessApp 1.0  // Removed - using context properties
+import "../styles"
 
-Dialog {
-    id: messagePopup
+Popup {
+    id: root
     
+    property string title: "Information"
     property string message: ""
     property string type: "info" // "info", "success", "warning", "error"
+    property bool autoClose: true
+    property int autoCloseDelay: 3000
     
     signal accepted()
-    signal rejected()
+    signal dismissed()
+    
+    width: Math.min(400, parent ? parent.width * 0.9 : 400)
+    height: contentColumn.height + 40
+    x: parent ? (parent.width - width) / 2 : 0
+    y: parent ? (parent.height - height) / 2 : 0
     
     modal: true
-    anchors.centerIn: parent
-    width: Math.min(400, parent.width * 0.9)
-    height: Math.min(200, implicitHeight)
-    
-    Material.accent: themeManager.primaryColor
-    
-    // Icon and color based on type
-    property string iconText: {
-        switch(type) {
-            case "success": return "✅"
-            case "warning": return "⚠️"
-            case "error": return "❌"
-            default: return "ℹ️"
+    focus: true
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+      background: Rectangle {
+        id: backgroundRect
+        color: Theme.backgroundColor
+        border.color: typeColor
+        border.width: 2
+        radius: Theme.cardRadius
+        
+        // Simple shadow effect using multiple rectangles
+        Rectangle {
+            anchors.fill: parent
+            anchors.topMargin: 4
+            anchors.leftMargin: 4
+            color: "#20000000"
+            radius: parent.radius
+            z: -1
+        }
+        Rectangle {
+            anchors.fill: parent
+            anchors.topMargin: 2
+            anchors.leftMargin: 2
+            color: "#10000000"
+            radius: parent.radius
+            z: -2
         }
     }
     
-    property color typeColor: {
+    readonly property color typeColor: {
         switch(type) {
             case "success": return "#4CAF50"
             case "warning": return "#FF9800"
-            case "error": return themeManager.errorColor
-            default: return themeManager.primaryColor
+            case "error": return "#F44336"
+            default: return Theme.primaryColor
         }
     }
     
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 16
-        spacing: 16
-        
-        // Icon and message
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 16
-            
-            Text {
-                text: messagePopup.iconText
-                font.pixelSize: 32
-            }
-            
-            Text {
-                text: messagePopup.message
-                color: themeManager.textColor
-                font.pixelSize: 14
-                wrapMode: Text.WordWrap
-                Layout.fillWidth: true
-            }
+    readonly property string typeIcon: {
+        switch(type) {
+            case "success": return "qrc:/assets/icons/check-circle.svg"
+            case "warning": return "qrc:/assets/icons/warning.svg"
+            case "error": return "qrc:/assets/icons/error.svg"
+            default: return "qrc:/assets/icons/info.svg"
         }
+    }
+    
+    contentItem: Column {
+        id: contentColumn
+        spacing: Theme.spacing
         
-        Item {
-            Layout.fillHeight: true
-        }
-        
-        // Buttons
-        RowLayout {
-            Layout.fillWidth: true
+        Row {
+            spacing: Theme.spacing
+            width: parent.width
             
-            Item {
-                Layout.fillWidth: true
-            }
-            
-            Button {
-                text: type === "warning" ? "Cancel" : "OK"
-                flat: type === "warning"
-                Material.foreground: type === "warning" ? themeManager.secondaryTextColor : "white"
-                Material.background: type === "warning" ? "transparent" : messagePopup.typeColor
-                onClicked: {
-                    if (type === "warning") {
-                        messagePopup.rejected()
-                    } else {
-                        messagePopup.accepted()
+            Rectangle {
+                width: 24
+                height: 24
+                radius: 12
+                color: root.typeColor
+                anchors.verticalCenter: titleText.verticalCenter
+                
+                Text {
+                    anchors.centerIn: parent
+                    text: {
+                        switch(root.type) {
+                            case "success": return "✓"
+                            case "warning": return "!"
+                            case "error": return "✗"
+                            default: return "i"
+                        }
                     }
-                    messagePopup.close()
+                    color: "white"
+                    font.pixelSize: 14
+                    font.weight: Font.Bold
                 }
-                visible: type !== "warning" || true
             }
             
+            Text {
+                id: titleText
+                text: root.title
+                font.pixelSize: Theme.fontSizeLarge
+                font.weight: Font.Bold
+                color: Theme.textColor
+                width: parent.width - parent.spacing - 24
+                wrapMode: Text.WordWrap
+            }
+        }
+        
+        Text {
+            text: root.message
+            font.pixelSize: Theme.fontSize
+            color: Theme.textColorSecondary
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: root.message !== ""
+        }
+        
+        Row {
+            spacing: Theme.spacing
+            anchors.right: parent.right
+            
             Button {
-                text: type === "warning" ? "Delete" : "OK"
-                Material.background: messagePopup.typeColor
-                Material.foreground: "white"
-                visible: type === "warning"
+                text: "OK"
+                highlighted: true
                 onClicked: {
-                    messagePopup.accepted()
-                    messagePopup.close()
+                    root.accepted()
+                    root.close()
                 }
             }
         }
     }
     
-    // Auto-close for success messages
     Timer {
-        interval: 3000
-        running: messagePopup.visible && (type === "success" || type === "info")
+        id: autoCloseTimer
+        interval: root.autoCloseDelay
+        running: root.visible && root.autoClose && root.type !== "error"
         onTriggered: {
-            messagePopup.accepted()
-            messagePopup.close()
+            root.dismissed()
+            root.close()
+        }
+    }
+    
+    enter: Transition {
+        ParallelAnimation {
+            NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 200 }
+            NumberAnimation { property: "scale"; from: 0.8; to: 1; duration: 200; easing.type: Easing.OutBack }
+        }
+    }
+    
+    exit: Transition {
+        ParallelAnimation {
+            NumberAnimation { property: "opacity"; from: 1; to: 0; duration: 150 }
+            NumberAnimation { property: "scale"; from: 1; to: 0.8; duration: 150 }
         }
     }
 }

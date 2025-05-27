@@ -1,679 +1,385 @@
 """
-QML Bridge Handlers
-
-Python handlers that bridge QML frontend with business logic services.
-These handlers are exposed to QML as context properties and provide
-the interface between the UI and backend systems.
+QML Bridge - Central Python-QML communication layer.
+Exposes AuthHandler, ProductHandler, and ConfigHandler to QML.
 """
+
 from typing import Dict, Any, List, Optional
-from datetime import datetime, timezone
-from decimal import Decimal
-
 from PySide6.QtCore import QObject, Signal, Slot, Property, QTimer
-from PySide6.QtQml import qmlRegisterType
-from loguru import logger
+from PySide6.QtQml import QmlElement
 
-from services.business_services import (
-    UserService, ProductService, CustomerService, 
-    SalesService, InventoryService, ReportService
-)
-from services.auth_service import AuthService
-from api_client.sync_manager import SyncManager
+from business_logic.auth_service import AuthService
+from business_logic.product_service import ProductService
+from core.config_manager import ConfigManager
+from app_logger.log_manager import LogManager
+
+
+QML_IMPORT_NAME = "ChaOffice"
+QML_IMPORT_MAJOR_VERSION = 1
 
 
 class AuthHandler(QObject):
-    """QML handler for authentication operations"""
+    """Handles authentication operations for QML."""
     
-    # Signals for QML
-    loginResult = Signal(bool, str, 'QVariant')  # success, message, user_data
-    logoutResult = Signal(bool, str)  # success, message
-    permissionChanged = Signal()
-    userChanged = Signal()
+    # Signals
+    loginSuccess = Signal()
+    loginFailed = Signal(str)
+    loggedOut = Signal()
+    isLoggedInChanged = Signal()
     
-    def __init__(self, auth_service: AuthService):
-        super().__init__()
+    def __init__(self, auth_service: AuthService, parent=None):
+        """Initialize auth handler."""
+        super().__init__(parent)
+        self.logger = LogManager().get_logger("AuthHandler")
         self.auth_service = auth_service
-        self._current_user = None
-        self._is_authenticated = False
-        self._permissions = {}
-    
-    @Property(bool, notify=userChanged)
-    def isAuthenticated(self) -> bool:
-        return self._is_authenticated
-    
-    @Property('QVariant', notify=userChanged)
-    def currentUser(self):
-        return self._current_user
-    
-    @Property('QVariant', notify=permissionChanged)
-    def permissions(self):
-        return self._permissions
-    
-    @Slot(str, str, bool, result='QVariant')
-    def login(self, username: str, password: str, remember_me: bool = False) -> Dict[str, Any]:
-        """
-        Authenticate user and return result.
+        self._is_logged_in = False
+        self._current_user_data = {}
         
-        Args:
-            username: Username or email
-            password: Password
-            remember_me: Whether to remember login
+        # Check initial login state
+        self._update_login_state()
+    
+    def _update_login_state(self):
+        """Update login state from auth service."""
+        new_logged_in = self.auth_service.is_logged_in()
+        if new_logged_in != self._is_logged_in:
+            self._is_logged_in = new_logged_in
             
-        Returns:
-            Dict with login result
-        """
-        try:
-            # Note: In a real implementation, you'd use asyncio.run() or proper async handling
-            # For this example, we'll simulate the async call
-            logger.info(f"Login attempt for: {username}")
-            
-            # This would be an async call in practice
-            result = self.auth_service.login(username, password, remember_me)
-            
-            if result.success:
-                session = result.data.get('session', {})
-                user_data = result.data.get('user', {})
-                
-                self._current_user = user_data
-                self._is_authenticated = True
-                self._permissions = session.get('permissions', {})
-                
-                self.userChanged.emit()
-                self.permissionChanged.emit()
-                self.loginResult.emit(True, result.message, user_data)
-                
-                logger.info(f"Login successful for: {username}")
-                
-                return {
-                    "success": True,
-                    "message": result.message,
-                    "user": user_data
-                }
+            if self._is_logged_in:
+                user_data = self.auth_service.get_current_user()
+                self._current_user_data = user_data or {}
             else:
-                self.loginResult.emit(False, result.errors[0] if result.errors else "Login failed", {})
+                self._current_user_data = {}
                 
-                return {
-                    "success": False,
-                    "message": result.errors[0] if result.errors else "Login failed"
-                }
-                
-        except Exception as e:
-            error_msg = f"Login error: {str(e)}"
-            logger.error(error_msg)
-            self.loginResult.emit(False, error_msg, {})
-            
-            return {
-                "success": False,
-                "message": error_msg
-            }
+            self.isLoggedInChanged.emit()
     
-    @Slot(result='QVariant')
-    def logout(self) -> Dict[str, Any]:
-        """Logout current user"""
+    @Property(bool, notify=isLoggedInChanged)
+    def isLoggedIn(self) -> bool:
+        """Get login status."""
+        return self._is_logged_in
+    
+    @Property(str, notify=isLoggedInChanged)
+    def userEmail(self) -> str:
+        """Get current user email."""
+        return self._current_user_data.get('email', '')
+    
+    @Property(str, notify=isLoggedInChanged)
+    def userFullName(self) -> str:
+        """Get current user full name."""
+        return self._current_user_data.get('full_name', '')
+    
+    @Slot(str, str)
+    def login(self, email: str, password: str) -> None:
+        """Perform user login."""
         try:
-            result = self.auth_service.logout()
+            self.logger.info(f"Login attempt for: {email}")
             
-            self._current_user = None
-            self._is_authenticated = False
-            self._permissions = {}
+            success, message, user_data = self.auth_service.login(email, password)
             
-            self.userChanged.emit()
-            self.permissionChanged.emit()
-            self.logoutResult.emit(result.success, result.message)
-            
-            return {
-                "success": result.success,
-                "message": result.message
-            }
-            
+            if success:
+                self._update_login_state()
+                self.loginSuccess.emit()
+                self.logger.info(f"Login successful for: {email}")
+            else:
+                self.loginFailed.emit(message)
+                self.logger.warning(f"Login failed for {email}: {message}")
+                
         except Exception as e:
-            error_msg = f"Logout error: {str(e)}"
-            logger.error(error_msg)
-            self.logoutResult.emit(False, error_msg)
+            error_msg = f"Login error: {e}"
+            self.logger.error(error_msg)
+            self.loginFailed.emit(error_msg)
+    
+    @Slot()
+    def logout(self) -> None:
+        """Perform user logout."""
+        try:
+            self.logger.info("Logout requested")
             
-            return {
-                "success": False,
-                "message": error_msg
-            }
-    
-    @Slot(str, str, result=bool)
-    def hasPermission(self, resource: str, action: str) -> bool:
-        """Check if current user has specific permission"""
-        return self.auth_service.check_permission(resource, action)
-    
-    @Slot(result='QVariant')
-    def getSessionInfo(self) -> Dict[str, Any]:
-        """Get current session information"""
-        return self.auth_service.get_session_info()
+            success, message = self.auth_service.logout()
+            
+            if success:
+                self._update_login_state()
+                self.loggedOut.emit()
+                self.logger.info("Logout successful")
+            else:
+                self.logger.error(f"Logout failed: {message}")
+                # Still emit loggedOut to clear UI state
+                self._update_login_state()
+                self.loggedOut.emit()
+                
+        except Exception as e:
+            error_msg = f"Logout error: {e}"
+            self.logger.error(error_msg)
+            # Still emit loggedOut to clear UI state
+            self._update_login_state()
+            self.loggedOut.emit()
 
 
 class ProductHandler(QObject):
-    """QML handler for product operations"""
+    """Handles product operations for QML."""
+      # Signals
+    productListChanged = Signal()
+    productsFetched = Signal()
+    productsFetchFailed = Signal(str)
+    productOperationComplete = Signal(str)  # For general operations
     
-    # Signals
-    productCreated = Signal('QVariant')  # product_data
-    productUpdated = Signal('QVariant')  # product_data
-    productDeleted = Signal(int)  # product_id
-    productsLoaded = Signal('QVariant')  # products_list
-    
-    def __init__(self, product_service: ProductService, auth_service: AuthService):
-        super().__init__()
+    def __init__(self, product_service: ProductService, auth_service: AuthService, parent=None):
+        """Initialize product handler."""
+        super().__init__(parent)
+        self.logger = LogManager().get_logger("ProductHandler")
         self.product_service = product_service
         self.auth_service = auth_service
+        self._product_list: List[Dict[str, Any]] = []
+        self._is_loading = False
     
-    @Slot('QVariant', result='QVariant')
-    def createProduct(self, product_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a new product"""
+    @Property(list, notify=productListChanged)
+    def productList(self) -> List[Dict[str, Any]]:
+        """Get current product list."""
+        return self._product_list
+    
+    @Property(bool, notify=productListChanged)
+    def isLoading(self) -> bool:
+        """Get loading status."""
+        return self._is_loading
+    
+    @Property(int, notify=productListChanged)
+    def productCount(self) -> int:
+        """Get product count."""
+        return len(self._product_list)
+    
+    @Slot()
+    def fetchProducts(self) -> None:
+        """Fetch products from service."""
         try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("products", "create")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
+            self.logger.info("Fetching products")
+            self._is_loading = True
+            self.productListChanged.emit()
             
-            result = self.product_service.create_product(product_data)
+            # Get JWT token if available
+            jwt_token = self.auth_service.get_jwt_token()
             
-            if result.success:
-                self.productCreated.emit(result.data)
+            success, message, products = self.product_service.get_products(jwt_token)
             
-            return result.to_dict()
+            self._is_loading = False
             
+            if success:
+                self._product_list = products
+                self.productListChanged.emit()
+                self.productsFetched.emit()
+                self.logger.info(f"Successfully fetched {len(products)} products")
+            else:
+                self.productsFetchFailed.emit(message)
+                self.logger.error(f"Failed to fetch products: {message}")
+                
         except Exception as e:
-            error_msg = f"Product creation error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
+            self._is_loading = False
+            error_msg = f"Error fetching products: {e}"
+            self.logger.error(error_msg)
+            self.productsFetchFailed.emit(error_msg)
+            self.productListChanged.emit()
     
-    @Slot(int, 'QVariant', result='QVariant')
-    def updateProduct(self, product_id: int, update_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Update an existing product"""
+    @Slot(str)
+    def searchProducts(self, query: str) -> None:
+        """Search products by query."""
         try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("products", "update")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
+            self.logger.info(f"Searching products: {query}")
+            self._is_loading = True
+            self.productListChanged.emit()
             
-            # Note: You'd implement update_product in ProductService
-            # For now, we'll simulate it
-            logger.info(f"Updating product {product_id} with data: {update_data}")
+            jwt_token = self.auth_service.get_jwt_token()
             
-            # Simulate successful update
-            updated_product = {"id": product_id, **update_data}
-            self.productUpdated.emit(updated_product)
+            if query.strip():
+                success, message, products = self.product_service.search_products(query, jwt_token)
+            else:
+                # Empty query - return all products
+                success, message, products = self.product_service.get_products(jwt_token)
             
+            self._is_loading = False
+            
+            if success:
+                self._product_list = products
+                self.productListChanged.emit()
+                self.productOperationComplete.emit(f"Search returned {len(products)} results")
+            else:
+                self.productsFetchFailed.emit(message)
+                self.logger.error(f"Product search failed: {message}")
+                
+        except Exception as e:
+            self._is_loading = False
+            error_msg = f"Product search error: {e}"
+            self.logger.error(error_msg)
+            self.productsFetchFailed.emit(error_msg)
+            self.productListChanged.emit()
+    
+    @Slot(str)
+    def filterByCategory(self, category: str) -> None:
+        """Filter products by category."""
+        try:
+            self.logger.info(f"Filtering by category: {category}")
+            self._is_loading = True
+            self.productListChanged.emit()
+            
+            jwt_token = self.auth_service.get_jwt_token()
+            
+            if category.strip() and category.lower() != "all":
+                success, message, products = self.product_service.get_products_by_category(category, jwt_token)
+            else:
+                # "All" category - return all products
+                success, message, products = self.product_service.get_products(jwt_token)
+            
+            self._is_loading = False
+            
+            if success:
+                self._product_list = products
+                self.productListChanged.emit()
+                self.productOperationComplete.emit(f"Category filter returned {len(products)} products")
+            else:
+                self.productsFetchFailed.emit(message)
+                
+        except Exception as e:
+            self._is_loading = False
+            error_msg = f"Category filter error: {e}"
+            self.logger.error(error_msg)
+            self.productsFetchFailed.emit(error_msg)
+            self.productListChanged.emit()
+    @Slot(int, result=dict)
+    def getProductById(self, productId: int) -> Optional[Dict[str, Any]]:
+        """Get a specific product by ID."""
+        try:
+            jwt_token = self.auth_service.get_jwt_token()
+            success, message, product = self.product_service.get_product_by_id(productId, jwt_token)
+            
+            if success:
+                return product
+            else:
+                self.logger.warning(f"Product {productId} not found: {message}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"Error getting product {productId}: {e}")
+            return None
+
+
+class ConfigHandler(QObject):
+    """Handles configuration operations for QML."""
+    
+    # Signals
+    isOnlineChanged = Signal()
+    themeColorsChanged = Signal()
+    configChanged = Signal()
+    
+    def __init__(self, config_manager: ConfigManager, parent=None):
+        """Initialize config handler."""
+        super().__init__(parent)
+        self.logger = LogManager().get_logger("ConfigHandler")
+        self.config_manager = config_manager
+    
+    @Property(bool, notify=isOnlineChanged)
+    def isOnline(self) -> bool:
+        """Get online mode status."""
+        return self.config_manager.is_online
+    
+    @Property(str, notify=themeColorsChanged)
+    def currentTheme(self) -> str:
+        """Get current theme."""
+        return self.config_manager.theme
+    @Property(dict, notify=themeColorsChanged)
+    def themeColors(self) -> Dict[str, str]:
+        """Get theme color palette."""
+        if self.config_manager.theme == "dark":
             return {
-                "success": True,
-                "message": "Product updated successfully",
-                "data": updated_product
+                'primary': '#2196F3',
+                'primaryDark': '#1976D2',
+                'secondary': '#FF9800',
+                'background': '#121212',
+                'surface': '#1E1E1E',
+                'text': '#FFFFFF',
+                'textSecondary': '#BBBBBB',
+                'border': '#333333',
+                'success': '#4CAF50',
+                'warning': '#FF9800',
+                'error': '#F44336'
             }
-            
-        except Exception as e:
-            error_msg = f"Product update error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
+        else:
+            return {
+                'primary': '#2196F3',
+                'primaryDark': '#1976D2',
+                'secondary': '#FF9800',
+                'background': '#FFFFFF',
+                'surface': '#F5F5F5',
+                'text': '#212121',
+                'textSecondary': '#757575',
+                'border': '#E0E0E0',
+                'success': '#4CAF50',
+                'warning': '#FF9800',
+                'error': '#F44336'
+            }
     
-    @Slot(str, str, bool, int, result='QVariant')
-    def searchProducts(
-        self, 
-        query: str = "", 
-        category: str = "", 
-        active_only: bool = True,
-        limit: int = 50
-    ) -> Dict[str, Any]:
-        """Search products with filters"""
+    @Slot(bool)
+    def toggleOnlineMode(self, online: bool) -> None:
+        """Toggle online/offline mode."""
         try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("products", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.product_service.search_products(query, category, active_only, limit)
-            
-            if result.success:
-                self.productsLoaded.emit(result.data)
-            
-            return result.to_dict()
+            self.logger.info(f"Toggling online mode to: {online}")
+            self.config_manager.is_online = online
+            self.isOnlineChanged.emit()
+            self.configChanged.emit()
             
         except Exception as e:
-            error_msg = f"Product search error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
+            self.logger.error(f"Failed to toggle online mode: {e}")
     
-    @Slot(int, float, result='QVariant')
-    def updateProductPrice(self, product_id: int, new_price: float) -> Dict[str, Any]:
-        """Update product price"""
+    @Slot()
+    def toggleTheme(self) -> None:
+        """Toggle between light and dark theme."""
         try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("products", "update")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.product_service.update_product_price(product_id, Decimal(str(new_price)))
-            
-            if result.success:
-                self.productUpdated.emit(result.data)
-            
-            return result.to_dict()
+            new_theme = self.config_manager.toggle_theme()
+            self.logger.info(f"Theme toggled to: {new_theme}")
+            self.themeColorsChanged.emit()
+            self.configChanged.emit()
             
         except Exception as e:
-            error_msg = f"Price update error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
+            self.logger.error(f"Failed to toggle theme: {e}")
+    
+    @Slot(str)
+    def setTheme(self, theme: str) -> None:
+        """Set specific theme."""
+        try:
+            if theme in ["light", "dark"]:
+                self.config_manager.theme = theme
+                self.logger.info(f"Theme set to: {theme}")
+                self.themeColorsChanged.emit()
+                self.configChanged.emit()
+            else:
+                self.logger.warning(f"Invalid theme: {theme}")
+                
+        except Exception as e:
+            self.logger.error(f"Failed to set theme: {e}")
 
 
-class CustomerHandler(QObject):
-    """QML handler for customer operations"""
+@QmlElement
+class QmlBridge(QObject):
+    """Central QML bridge exposing all handlers."""
     
-    # Signals
-    customerCreated = Signal('QVariant')  # customer_data
-    customerUpdated = Signal('QVariant')  # customer_data
-    customersLoaded = Signal('QVariant')  # customers_list
-    customerHistoryLoaded = Signal('QVariant')  # history_data
-    
-    def __init__(self, customer_service: CustomerService, auth_service: AuthService):
-        super().__init__()
-        self.customer_service = customer_service
-        self.auth_service = auth_service
-    
-    @Slot('QVariant', result='QVariant')
-    def createCustomer(self, customer_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a new customer"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("customers", "create")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.customer_service.create_customer(customer_data)
-            
-            if result.success:
-                self.customerCreated.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Customer creation error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(str, int, result='QVariant')
-    def searchCustomers(self, query: str = "", limit: int = 50) -> Dict[str, Any]:
-        """Search customers"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("customers", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.customer_service.search_customers(query, limit)
-            
-            if result.success:
-                self.customersLoaded.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Customer search error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(int, result='QVariant')
-    def getCustomerHistory(self, customer_id: int) -> Dict[str, Any]:
-        """Get customer purchase history"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("customers", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.customer_service.get_customer_purchase_history(customer_id)
-            
-            if result.success:
-                self.customerHistoryLoaded.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Customer history error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-
-
-class SalesHandler(QObject):
-    """QML handler for sales operations"""
-    
-    # Signals
-    saleCreated = Signal('QVariant')  # sale_data
-    salesLoaded = Signal('QVariant')  # sales_list
-    saleUpdated = Signal('QVariant')  # sale_data
-    
-    def __init__(self, sales_service: SalesService, auth_service: AuthService):
-        super().__init__()
-        self.sales_service = sales_service
-        self.auth_service = auth_service
-    
-    @Slot(int, 'QVariant', str, result='QVariant')
-    def createSale(
-        self, 
-        customer_id: int, 
-        items: List[Dict[str, Any]], 
-        payment_method: str = "cash"
-    ) -> Dict[str, Any]:
-        """Create a new sale"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("sales", "create")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            # Get current user ID
-            current_user = self.auth_service.get_current_user()
-            user_id = current_user.user_id if current_user else None
-            
-            # Handle null customer_id (walk-in customer)
-            customer_id = customer_id if customer_id > 0 else None
-            
-            result = self.sales_service.create_sale(customer_id, items, payment_method, user_id)
-            
-            if result.success:
-                self.saleCreated.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Sale creation error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(str, str, result='QVariant')
-    def getSalesByDateRange(self, start_date: str, end_date: str) -> Dict[str, Any]:
-        """Get sales within date range"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("sales", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            # Parse dates
-            start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
-            end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
-            
-            # Get current user for filtering (if not admin)
-            current_user = self.auth_service.get_current_user()
-            user_id = None
-            if current_user and current_user.role not in ["admin", "manager"]:
-                user_id = current_user.user_id
-            
-            result = self.sales_service.get_sales_by_date_range(start_dt, end_dt, user_id)
-            
-            if result.success:
-                self.salesLoaded.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Sales query error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-
-
-class InventoryHandler(QObject):
-    """QML handler for inventory operations"""
-    
-    # Signals
-    inventoryUpdated = Signal('QVariant')  # inventory_data
-    inventoryLoaded = Signal('QVariant')  # inventory_list
-    lowStockAlert = Signal('QVariant')  # low_stock_items
-    movementRecorded = Signal('QVariant')  # movement_data
-    
-    def __init__(self, inventory_service: InventoryService, auth_service: AuthService):
-        super().__init__()
-        self.inventory_service = inventory_service
-        self.auth_service = auth_service
-    
-    @Slot(int, float, str, str, result='QVariant')
-    def addInventory(
-        self, 
-        product_id: int, 
-        quantity: float, 
-        reason: str = "restock",
-        notes: str = ""
-    ) -> Dict[str, Any]:
-        """Add inventory for a product"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("inventory", "update")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.inventory_service.add_inventory(
-                product_id, Decimal(str(quantity)), reason, notes
-            )
-            
-            if result.success:
-                self.inventoryUpdated.emit(result.data)
-                self.movementRecorded.emit({
-                    "product_id": product_id,
-                    "quantity": quantity,
-                    "type": "inbound",
-                    "reason": reason
-                })
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Inventory update error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(result='QVariant')
-    def getLowStockItems(self) -> Dict[str, Any]:
-        """Get items with low stock levels"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("inventory", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.inventory_service.get_low_stock_items()
-            
-            if result.success:
-                self.lowStockAlert.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Low stock query error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(int, str, int, result='QVariant')
-    def getInventoryMovements(
-        self, 
-        product_id: int = 0, 
-        movement_type: str = "", 
-        limit: int = 100
-    ) -> Dict[str, Any]:
-        """Get inventory movement history"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("inventory", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            # Handle optional parameters
-            product_id = product_id if product_id > 0 else None
-            movement_type = movement_type if movement_type else None
-            
-            result = self.inventory_service.get_inventory_movements(product_id, movement_type, limit)
-            
-            if result.success:
-                self.inventoryLoaded.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Inventory movements error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-
-
-class ReportsHandler(QObject):
-    """QML handler for reports and analytics"""
-    
-    # Signals
-    reportGenerated = Signal('QVariant')  # report_data
-    
-    def __init__(self, report_service: ReportService, auth_service: AuthService):
-        super().__init__()
-        self.report_service = report_service
-        self.auth_service = auth_service
-    
-    @Slot(str, str, result='QVariant')
-    def getSalesSummary(self, start_date: str, end_date: str) -> Dict[str, Any]:
-        """Generate sales summary report"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("reports", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            # Parse dates
-            start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
-            end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
-            
-            result = self.report_service.get_sales_summary(start_dt, end_dt)
-            
-            if result.success:
-                self.reportGenerated.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Sales report error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-    
-    @Slot(result='QVariant')
-    def getInventoryReport(self) -> Dict[str, Any]:
-        """Generate inventory status report"""
-        try:
-            # Check permissions
-            auth_check = self.auth_service.require_permission("reports", "read")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            result = self.report_service.get_inventory_report()
-            
-            if result.success:
-                self.reportGenerated.emit(result.data)
-            
-            return result.to_dict()
-            
-        except Exception as e:
-            error_msg = f"Inventory report error: {str(e)}"
-            logger.error(error_msg)
-            return {"success": False, "message": error_msg}
-
-
-class SyncHandler(QObject):
-    """QML handler for synchronization operations"""
-    
-    # Signals
-    syncStarted = Signal()
-    syncProgress = Signal(str, int)  # operation, percentage
-    syncCompleted = Signal(bool, 'QVariant')  # success, result
-    syncStatusChanged = Signal('QVariant')  # status_data
-    
-    def __init__(self, sync_manager: SyncManager, auth_service: AuthService):
-        super().__init__()
-        self.sync_manager = sync_manager
-        self.auth_service = auth_service
-        self._sync_in_progress = False
+    def __init__(self, auth_service: AuthService, product_service: ProductService, config_manager: ConfigManager, parent=None):
+        """Initialize QML bridge."""
+        super().__init__(parent)
+        self.logger = LogManager().get_logger("QmlBridge")
         
-        # Timer for periodic sync status updates
-        self.status_timer = QTimer()
-        self.status_timer.timeout.connect(self._update_sync_status)
-        self.status_timer.start(30000)  # Update every 30 seconds
-    
-    @Property(bool, notify=syncStatusChanged)
-    def syncInProgress(self) -> bool:
-        return self._sync_in_progress
-    
-    @Slot(result='QVariant')
-    def startFullSync(self) -> Dict[str, Any]:
-        """Start full bidirectional synchronization"""
-        try:
-            # Check permissions (admin only for manual sync)
-            auth_check = self.auth_service.require_permission("settings", "update")
-            if not auth_check.success:
-                return {"success": False, "message": auth_check.errors[0]}
-            
-            if self._sync_in_progress:
-                return {"success": False, "message": "Sync already in progress"}
-            
-            self._sync_in_progress = True
-            self.syncStarted.emit()
-            self.syncStatusChanged.emit({"sync_in_progress": True})
-            
-            # In a real implementation, this would be run in a separate thread
-            # For now, we'll simulate it
-            logger.info("Starting full synchronization")
-            
-            # Simulate sync progress
-            QTimer.singleShot(1000, lambda: self.syncProgress.emit("Pulling remote changes", 25))
-            QTimer.singleShot(2000, lambda: self.syncProgress.emit("Pushing local changes", 50))
-            QTimer.singleShot(3000, lambda: self.syncProgress.emit("Resolving conflicts", 75))
-            QTimer.singleShot(4000, lambda: self._complete_sync())
-            
-            return {"success": True, "message": "Sync started"}
-            
-        except Exception as e:
-            error_msg = f"Sync start error: {str(e)}"
-            logger.error(error_msg)
-            self._sync_in_progress = False
-            return {"success": False, "message": error_msg}
-    
-    def _complete_sync(self):
-        """Simulate sync completion"""
-        self._sync_in_progress = False
-        self.syncProgress.emit("Sync completed", 100)
+        # Create handlers
+        self._auth_handler = AuthHandler(auth_service, self)
+        self._product_handler = ProductHandler(product_service, auth_service, self)
+        self._config_handler = ConfigHandler(config_manager, self)
         
-        # Simulate successful result
-        result = {
-            "synced_count": 25,
-            "failed_count": 0,
-            "conflicts_count": 1,
-            "errors": []
-        }
-        
-        self.syncCompleted.emit(True, result)
-        self.syncStatusChanged.emit({"sync_in_progress": False})
-        logger.info("Synchronization completed successfully")
+        self.logger.info("QML Bridge initialized successfully")
     
-    @Slot(result='QVariant')
-    def getSyncStatus(self) -> Dict[str, Any]:
-        """Get current synchronization status"""
-        try:
-            return self.sync_manager.get_sync_status()
-        except Exception as e:
-            logger.error(f"Sync status error: {str(e)}")
-            return {"error": str(e)}
+    @Property(QObject, constant=True)
+    def authHandler(self) -> AuthHandler:
+        """Get authentication handler."""
+        return self._auth_handler
     
-    def _update_sync_status(self):
-        """Periodically update sync status"""
-        try:
-            status = self.getSyncStatus()
-            self.syncStatusChanged.emit(status)
-        except Exception as e:
-            logger.error(f"Sync status update error: {str(e)}")
-
-
-# Register QML types
-def register_qml_types():
-    """Register all QML types for use in QML"""
-    qmlRegisterType(AuthHandler, "BusinessApp", 1, 0, "AuthHandler")
-    qmlRegisterType(ProductHandler, "BusinessApp", 1, 0, "ProductHandler")
-    qmlRegisterType(CustomerHandler, "BusinessApp", 1, 0, "CustomerHandler")
-    qmlRegisterType(SalesHandler, "BusinessApp", 1, 0, "SalesHandler")
-    qmlRegisterType(InventoryHandler, "BusinessApp", 1, 0, "InventoryHandler")
-    qmlRegisterType(ReportsHandler, "BusinessApp", 1, 0, "ReportsHandler")
-    qmlRegisterType(SyncHandler, "BusinessApp", 1, 0, "SyncHandler")
+    @Property(QObject, constant=True)
+    def productHandler(self) -> ProductHandler:
+        """Get product handler."""
+        return self._product_handler
+    
+    @Property(QObject, constant=True)
+    def configHandler(self) -> ConfigHandler:
+        """Get configuration handler."""
+        return self._config_handler

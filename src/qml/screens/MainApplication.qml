@@ -1,286 +1,409 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls.Material 2.15
-// import BusinessApp 1.0  // Temporarily disabled
+import "../styles"
+import "../components"
+import "../views"
 
-Item {
-    id: mainApp
+Rectangle {
+    id: root
     
-    // Navigation state
+    property string currentUser: ""
+    property bool isOnlineMode: true
     property string currentView: "dashboard"
     
-    // User info
-    property var currentUser: authHandler.currentUser
+    signal logoutRequested()
+    signal viewChanged(string viewName)
     
-    // Component loading state
-    property bool isLoading: false
-    
-    // Background
-    Rectangle {
-        anchors.fill: parent
-        color: themeManager.backgroundColor
-    }
+    color: Theme.backgroundColor
     
     RowLayout {
         anchors.fill: parent
         spacing: 0
         
-        // Sidebar Navigation
+        // Sidebar
         Rectangle {
-            id: sidebar
-            Layout.preferredWidth: 250
             Layout.fillHeight: true
-            color: themeManager.primaryColor
+            Layout.preferredWidth: 250
+            color: Theme.sidebarColor
+            border.color: Theme.borderColor
+            border.width: 1
             
-            ColumnLayout {
+            Column {
                 anchors.fill: parent
-                anchors.margins: 16
-                spacing: 8
                 
-                // User info header
+                // Header
                 Rectangle {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 80
-                    color: "transparent"
-                    border.color: themeManager.dividerColor
-                    border.width: 1
-                    radius: 8
+                    width: parent.width
+                    height: 80
+                    color: Theme.primaryColor
                     
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.margins: 12
-                        spacing: 12
+                    Row {
+                        anchors.centerIn: parent
+                        spacing: Theme.spacing
                         
-                        // User avatar
                         Rectangle {
-                            Layout.preferredWidth: 50
-                            Layout.preferredHeight: 50
-                            color: themeManager.accentColor
-                            radius: 25
+                            width: 40
+                            height: 40
+                            radius: 20
+                            color: "white"
+                            anchors.verticalCenter: parent.verticalCenter
                             
                             Text {
                                 anchors.centerIn: parent
-                                text: currentUser ? currentUser.username.charAt(0).toUpperCase() : "U"
-                                color: "white"
-                                font.pixelSize: 20
-                                font.bold: true
+                                text: "CO"
+                                font.pixelSize: 16
+                                font.weight: Font.Bold
+                                color: Theme.primaryColor
                             }
                         }
                         
-                        // User details
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: 2
+                        Column {
+                            anchors.verticalCenter: parent.verticalCenter
                             
                             Text {
-                                text: currentUser ? currentUser.username : "User"
+                                text: "ChaOffice"
+                                font.pixelSize: Theme.fontSizeLarge
+                                font.weight: Font.Bold
                                 color: "white"
-                                font.pixelSize: 14
-                                font.bold: true
                             }
                             
                             Text {
-                                text: currentUser ? currentUser.role : "user"
-                                color: themeManager.surfaceColor
-                                font.pixelSize: 12
+                                text: root.isOnlineMode ? "Online" : "Offline"
+                                font.pixelSize: Theme.fontSizeSmall
+                                color: "white"
                                 opacity: 0.8
                             }
                         }
                     }
                 }
                 
-                // Navigation menu
+                // Navigation
                 ScrollView {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    width: parent.width
+                    height: parent.height - 80 - 120
                     
-                    ColumnLayout {
+                    Column {
                         width: parent.width
-                        spacing: 4
-                        
-                        // Dashboard
-                        NavigationItem {
-                            icon: "📊"
-                            text: "Dashboard"
-                            isActive: mainApp.currentView === "dashboard"
-                            onClicked: mainApp.currentView = "dashboard"
-                        }
-                        
-                        // Products
-                        NavigationItem {
-                            icon: "📦"
-                            text: "Products"
-                            isActive: mainApp.currentView === "products"
-                            onClicked: mainApp.currentView = "products"
-                        }
-                        
-                        // Customers
-                        NavigationItem {
-                            icon: "👥"
-                            text: "Customers"
-                            isActive: mainApp.currentView === "customers"
-                            onClicked: mainApp.currentView = "customers"
-                        }
-                        
-                        // Sales
-                        NavigationItem {
-                            icon: "💰"
-                            text: "Sales"
-                            isActive: mainApp.currentView === "sales"
-                            onClicked: mainApp.currentView = "sales"
-                        }
-                        
-                        // Inventory
-                        NavigationItem {
-                            icon: "📋"
-                            text: "Inventory"
-                            isActive: mainApp.currentView === "inventory"
-                            onClicked: mainApp.currentView = "inventory"
-                        }
-                        
-                        // Reports (Admin/Manager only)
-                        NavigationItem {
-                            icon: "📈"
-                            text: "Reports"
-                            isActive: mainApp.currentView === "reports"
-                            visible: currentUser && (currentUser.role === "admin" || currentUser.role === "manager")
-                            onClicked: mainApp.currentView = "reports"
-                        }
-                        
-                        // Settings (Admin only)
-                        NavigationItem {
-                            icon: "⚙️"
-                            text: "Settings"
-                            isActive: mainApp.currentView === "settings"
-                            visible: currentUser && currentUser.role === "admin"
-                            onClicked: mainApp.currentView = "settings"
-                        }
-                        
-                        // Spacer
-                        Item {
-                            Layout.fillHeight: true
-                        }
-                        
-                        // Sync status
-                        Rectangle {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 40
-                            color: "transparent"
-                            border.color: themeManager.dividerColor
-                            border.width: 1
-                            radius: 6
+                          Rectangle {
+                            width: parent.width
+                            height: 48
+                            color: root.currentView === "dashboard" ? Theme.primaryColorLight : 
+                                   (dashboardMouse.containsMouse ? Theme.hoverColor : "transparent")
                             
-                            RowLayout {
+                            Row {
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.spacing
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: Theme.spacing
+                                
+                                SvgIcon {
+                                    source: "qrc:/assets/icons/dashboard.svg"
+                                    size: 20
+                                    color: root.currentView === "dashboard" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                                
+                                Text {
+                                    text: "Dashboard"
+                                    font.pixelSize: Theme.fontSize
+                                    color: root.currentView === "dashboard" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                            }
+                            
+                            MouseArea {
+                                id: dashboardMouse
                                 anchors.fill: parent
-                                anchors.margins: 8
-                                spacing: 8
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: root.setCurrentView("dashboard")
+                            }
+                        }
+                          Rectangle {
+                            width: parent.width
+                            height: 48
+                            color: root.currentView === "products" ? Theme.primaryColorLight : 
+                                   (productsMouse.containsMouse ? Theme.hoverColor : "transparent")
+                            
+                            Row {
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.spacing
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: Theme.spacing
                                 
-                                Text {
-                                    text: syncHandler.isOnline ? "🟢" : "🔴"
-                                    font.pixelSize: 12
+                                SvgIcon {
+                                    source: "qrc:/assets/icons/package.svg"
+                                    size: 20
+                                    color: root.currentView === "products" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
                                 }
                                 
                                 Text {
-                                    text: syncHandler.isOnline ? "Online" : "Offline"
+                                    text: "Products"
+                                    font.pixelSize: Theme.fontSize
+                                    color: root.currentView === "products" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                            }
+                            
+                            MouseArea {
+                                id: productsMouse
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: root.setCurrentView("products")
+                            }
+                        }
+                          
+                        Rectangle {
+                            width: parent.width
+                            height: 48
+                            color: root.currentView === "sales" ? Theme.primaryColorLight : 
+                                   (salesMouse.containsMouse ? Theme.hoverColor : "transparent")
+                            enabled: root.isOnlineMode
+                            opacity: enabled ? 1.0 : 0.5
+                            
+                            Row {
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.spacing
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: Theme.spacing
+                                
+                                SvgIcon {
+                                    source: "qrc:/assets/icons/trending-up.svg"
+                                    size: 20
+                                    color: root.currentView === "sales" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    opacity: parent.parent.enabled ? 1.0 : 0.5
+                                }
+                                
+                                Text {
+                                    text: "Sales"
+                                    font.pixelSize: Theme.fontSize
+                                    color: root.currentView === "sales" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    opacity: parent.parent.enabled ? 1.0 : 0.5
+                                }
+                            }
+                            
+                            MouseArea {
+                                id: salesMouse
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                enabled: parent.enabled
+                                cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                onClicked: if (enabled) root.setCurrentView("sales")                            }
+                        }
+                        
+                        Rectangle {
+                            width: parent.width
+                            height: 48
+                            color: root.currentView === "customers" ? Theme.primaryColorLight : 
+                                   (customersMouse.containsMouse ? Theme.hoverColor : "transparent")
+                            enabled: root.isOnlineMode
+                            opacity: enabled ? 1.0 : 0.5
+                            
+                            Row {
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.spacing
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: Theme.spacing
+                                
+                                SvgIcon {
+                                    source: "qrc:/assets/icons/users.svg"
+                                    size: 20
+                                    color: root.currentView === "customers" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    opacity: parent.parent.enabled ? 1.0 : 0.5
+                                }
+                                
+                                Text {
+                                    text: "Customers"
+                                    font.pixelSize: Theme.fontSize
+                                    color: root.currentView === "customers" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    opacity: parent.parent.enabled ? 1.0 : 0.5
+                                }
+                            }
+                            
+                            MouseArea {
+                                id: customersMouse
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                enabled: parent.enabled
+                                cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                onClicked: if (enabled) root.setCurrentView("customers")
+                            }
+                        }
+                        
+                        Rectangle {
+                            width: parent.width
+                            height: 1
+                            color: Theme.borderColor
+                        }
+                          Rectangle {
+                            width: parent.width
+                            height: 48
+                            color: root.currentView === "settings" ? Theme.primaryColorLight : 
+                                   (settingsMouse.containsMouse ? Theme.hoverColor : "transparent")
+                            
+                            Row {
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.spacing
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: Theme.spacing
+                                
+                                SvgIcon {
+                                    source: "qrc:/assets/icons/settings.svg"
+                                    size: 20
+                                    color: root.currentView === "settings" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                                
+                                Text {
+                                    text: "Settings"
+                                    font.pixelSize: Theme.fontSize
+                                    color: root.currentView === "settings" ? Theme.primaryColor : Theme.textColor
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                            }
+                            
+                            MouseArea {
+                                id: settingsMouse
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: root.setCurrentView("settings")
+                            }
+                        }
+                    }
+                }
+                
+                // User info and logout
+                Rectangle {
+                    width: parent.width
+                    height: 120
+                    color: Theme.headerColor
+                    border.color: Theme.borderColor
+                    border.width: 1
+                    
+                    Column {
+                        anchors.centerIn: parent
+                        spacing: Theme.spacingSmall
+                        
+                        Row {
+                            spacing: Theme.spacing
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            
+                            Rectangle {
+                                width: 32
+                                height: 32
+                                radius: 16
+                                color: Theme.primaryColor
+                                anchors.verticalCenter: parent.verticalCenter
+                                
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: root.currentUser.length > 0 ? root.currentUser.charAt(0).toUpperCase() : "U"
+                                    font.pixelSize: 14
+                                    font.weight: Font.Bold
                                     color: "white"
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
+                                }
+                            }
+                            
+                            Column {
+                                anchors.verticalCenter: parent.verticalCenter
+                                
+                                Text {
+                                    text: root.currentUser || "Guest User"
+                                    font.pixelSize: Theme.fontSize
+                                    font.weight: Font.Medium
+                                    color: Theme.textColor
                                 }
                                 
-                                Button {
-                                    text: "Sync"
-                                    enabled: syncHandler.isOnline && !syncHandler.isSyncing
-                                    Material.background: themeManager.accentColor
-                                    Material.foreground: "white"
-                                    font.pixelSize: 10
-                                    onClicked: syncHandler.syncAll()
+                                Text {
+                                    text: root.isOnlineMode ? "Online Mode" : "Offline Mode"
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    color: Theme.textColorSecondary
                                 }
                             }
                         }
                         
-                        // Logout button
-                        Button {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 45
+                        CustomButton {
                             text: "Logout"
-                            Material.background: themeManager.errorColor
-                            Material.foreground: "white"
-                            font.pixelSize: 14
-                            onClicked: authHandler.logout()
+                            width: parent.width - Theme.spacing * 2
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            primary: false
+                            
+                            onClicked: root.logoutRequested()
                         }
                     }
                 }
             }
         }
         
-        // Main content area
+        // Main content
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: themeManager.backgroundColor
+            color: Theme.backgroundColor
             
-            StackView {
+            StackLayout {
                 id: contentStack
                 anchors.fill: parent
-                anchors.margins: 16
-                
-                // Loading overlay
-                Loader {
-                    visible: mainApp.isLoading
-                    anchors.centerIn: parent
-                    sourceComponent: BusyIndicator {
-                        Material.accent: themeManager.primaryColor
-                        running: true
+                currentIndex: {
+                    switch(root.currentView) {
+                        case "dashboard": return 0;
+                        case "products": return 1;
+                        case "settings": return 2;
+                        case "sales": return 3; // Added for Sales view
+                        case "customers": return 4; // Added for Customers view
+                        default: return 0;
                     }
                 }
                 
-                // Main content based on current view
-                Component.onCompleted: updateContent()
-                
-                Connections {
-                    target: mainApp
-                    function onCurrentViewChanged() {
-                        updateContent()
-                    }
+                DashboardView {
+                    id: dashboardView
+                    isOnlineMode: root.isOnlineMode
                 }
                 
-                function updateContent() {
-                    var component
-                    switch(mainApp.currentView) {
-                        case "dashboard":
-                            component = "views/DashboardView.qml"
-                            break
-                        case "products":
-                            component = "views/ProductsView.qml"
-                            break
-                        case "customers":
-                            component = "views/CustomersView.qml"
-                            break
-                        case "sales":
-                            component = "views/SalesView.qml"
-                            break
-                        case "inventory":
-                            component = "views/InventoryView.qml"
-                            break
-                        case "reports":
-                            component = "views/ReportsView.qml"
-                            break
-                        case "settings":
-                            component = "views/SettingsView.qml"
-                            break
-                        default:
-                            component = "views/DashboardView.qml"
+                ProductsView {
+                    id: productsView
+                    isOnlineMode: root.isOnlineMode
+                }
+                
+                SettingsView {
+                    id: settingsView
+                    isOnlineMode: root.isOnlineMode
+                    onThemeChanged: Theme.isDarkMode = isDark
+                    onOnlineModeToggled: root.isOnlineMode = enabled
+                }
+
+                // Placeholder for Sales View
+                Item {
+                    Text {
+                        anchors.centerIn: parent
+                        text: "Sales View (Not Implemented)"
+                        font.pixelSize: Theme.fontSizeXLarge
+                        color: Theme.textColor
                     }
-                    
-                    if (contentStack.currentItem === null || contentStack.currentItem.objectName !== mainApp.currentView) {
-                        contentStack.replace(component)
-                        if (contentStack.currentItem) {
-                            contentStack.currentItem.objectName = mainApp.currentView
-                        }
+                }
+
+                // Placeholder for Customers View
+                Item {
+                    Text {
+                        anchors.centerIn: parent
+                        text: "Customers View (Not Implemented)"
+                        font.pixelSize: Theme.fontSizeXLarge
+                        color: Theme.textColor
                     }
                 }
             }
         }
+    }
+      function setCurrentView(viewName) {
+        root.currentView = viewName
+        root.viewChanged(viewName)
     }
 }

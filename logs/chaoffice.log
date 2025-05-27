@@ -1,178 +1,352 @@
-2025-05-25 14:53:25 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 14:53:25 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 14:53:25 | ERROR    | __main__:run:286 | Failed to start application: SyncManager.__init__() got an unexpected keyword argument 'auth_api_client'
-2025-05-25 14:53:25 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
-2025-05-25 14:54:00 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 14:54:00 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 14:54:00 | INFO     | __main__:initialize_api_clients:136 | API clients initialized successfully
-2025-05-25 14:54:00 | ERROR    | __main__:run:285 | Failed to start application: AuthService.__init__() got an unexpected keyword argument 'local_db_manager'
-2025-05-25 14:54:00 | INFO     | __main__:cleanup:296 | ChaoOffice application shutting down
-2025-05-25 14:55:47 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 14:55:47 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 14:55:47 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 14:55:47 | ERROR    | __main__:run:286 | Failed to start application: 'ConfigManager' object has no attribute 'get_setting'
-2025-05-25 14:55:47 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
-2025-05-25 14:57:03 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 14:57:03 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 14:57:03 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 14:57:03 | ERROR    | __main__:run:286 | Failed to start application: 'ConfigManager' object has no attribute 'update_setting'
-2025-05-25 14:57:03 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
-2025-05-25 16:38:24 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:38:24 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:38:24 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:38:24 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:38:24 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:38:24 | ERROR    | __main__:run:286 | Failed to start application: ProductHandler.__init__() missing 1 required positional argument: 'auth_service'
-2025-05-25 16:38:24 | INFO     | __main__:cleanup:297 | ChaoOffice application shutting down
-2025-05-25 16:38:58 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:38:58 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:38:58 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:38:58 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:38:58 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:38:58 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:38:58 | ERROR    | __main__:run:285 | Failed to start application: Callback (<function ChaoOfficeApplication.register_qml_types.<locals>.create_theme_singleton at 0x00000213E14CC2C0>) has 2 parameter(s), expected one.
-2025-05-25 16:38:58 | INFO     | __main__:cleanup:296 | ChaoOffice application shutting down
-2025-05-25 16:39:28 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:39:28 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:39:28 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:39:28 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:39:28 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:39:28 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:39:28 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
-2025-05-25 16:39:28 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 16:39:28 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
-2025-05-25 16:39:59 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:39:59 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:39:59 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:39:59 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:39:59 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:39:59 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:39:59 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
-2025-05-25 16:39:59 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 16:39:59 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
-2025-05-25 16:41:44 | INFO     | src.logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:41:44 | INFO     | __main__:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:41:44 | INFO     | __main__:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:41:44 | INFO     | __main__:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:41:44 | INFO     | src.qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:41:44 | INFO     | __main__:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:41:44 | INFO     | __main__:register_qml_types:204 | QML types registered successfully
-2025-05-25 16:41:44 | INFO     | __main__:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 16:41:44 | ERROR    | __main__:load_main_qml:238 | Failed to load QML file
-2025-05-25 16:52:32 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:52:32 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:52:32 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:52:32 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:52:32 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:52:32 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:52:32 | INFO     | main:register_qml_types:204 | QML types registered successfully
-2025-05-25 16:52:32 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 16:52:32 | ERROR    | main:load_main_qml:238 | Failed to load QML file
-2025-05-25 16:59:39 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 16:59:39 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 16:59:39 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 16:59:39 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 16:59:39 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 16:59:39 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 16:59:39 | INFO     | main:register_qml_types:204 | QML types registered successfully
-2025-05-25 16:59:39 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 16:59:39 | ERROR    | main:load_main_qml:238 | Failed to load QML file
-2025-05-25 17:00:40 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 17:00:40 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 17:00:40 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 17:00:40 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 17:00:40 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 17:00:40 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 17:00:40 | INFO     | main:register_qml_types:204 | QML types registered successfully
-2025-05-25 17:00:40 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 17:00:41 | ERROR    | main:load_main_qml:238 | Failed to load QML file
-2025-05-25 17:05:39 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 17:05:39 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 17:05:39 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 17:05:39 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 17:05:39 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 17:05:39 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 17:05:39 | INFO     | main:register_qml_types:204 | QML types registered successfully
-2025-05-25 17:05:39 | INFO     | main:setup_context_properties:223 | QML context properties set up successfully
-2025-05-25 17:05:40 | ERROR    | main:load_main_qml:238 | Failed to load QML file
-2025-05-25 17:10:27 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 17:10:27 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 17:10:27 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 17:10:27 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 17:10:27 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 17:10:27 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 17:10:27 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 17:10:27 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 17:10:28 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 17:11:53 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 17:11:53 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 17:11:53 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 17:11:53 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 17:11:53 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 17:11:53 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 17:11:53 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 17:11:53 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 17:11:53 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 17:54:17 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 17:54:17 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 17:54:17 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 17:54:17 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 17:54:17 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 17:54:17 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 17:54:17 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 17:54:17 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 17:54:18 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:19:48 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:19:48 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:19:48 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:19:48 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:19:48 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:19:48 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:19:48 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:19:48 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:19:49 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:21:09 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:21:09 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:21:09 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:21:09 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:21:09 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:21:09 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:21:09 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:21:09 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:21:09 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:27:25 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:27:25 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:27:25 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:27:25 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:27:25 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:27:25 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:27:25 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:27:25 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:27:25 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:27:37 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:27:37 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:27:37 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:27:37 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:27:37 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:27:37 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:27:37 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:27:37 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:27:38 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:28:44 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:28:44 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:28:44 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:28:44 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:28:44 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:28:44 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:28:44 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:28:44 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:28:44 | ERROR    | main:load_main_qml:241 | Failed to load QML file
-2025-05-25 18:30:18 | INFO     | app_logging.log_manager:setup_logging:64 | Logging system initialized
-2025-05-25 18:30:18 | INFO     | main:initialize_core_components:116 | Core components initialized successfully
-2025-05-25 18:30:18 | INFO     | main:initialize_api_clients:135 | API clients initialized successfully
-2025-05-25 18:30:18 | INFO     | main:initialize_business_services:174 | Business services initialized successfully
-2025-05-25 18:30:18 | INFO     | qml_handlers.theme_manager:_load_custom_fonts:64 | Custom fonts loaded successfully
-2025-05-25 18:30:18 | INFO     | main:initialize_qml_handlers:188 | QML handlers initialized successfully
-2025-05-25 18:30:18 | INFO     | main:register_qml_types:207 | QML types registered successfully
-2025-05-25 18:30:18 | INFO     | main:setup_context_properties:226 | QML context properties set up successfully
-2025-05-25 18:30:19 | ERROR    | main:load_main_qml:241 | Failed to load QML file
+2025-05-25 19:16:57 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:16:57 | INFO     | __main__:init_local_db:20 - Starting local database initialization...
+2025-05-25 19:16:57 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:16:57 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_user:91 - User created: admin@example.com
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:34 - Default admin user created successfully
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_product:143 - Product created: Wireless Bluetooth Headphones
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_product:143 - Product created: Ergonomic Office Chair
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_product:143 - Product created: Stainless Steel Water Bottle
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_product:143 - Product created: Professional Coffee Maker
+2025-05-25 19:16:58 | INFO     | local_db.local_db_manager:create_product:143 - Product created: Smart Fitness Watch
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:88 - Created 5 sample products
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:92 - Database initialization complete:
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:93 -   - Database file: instance\chaoffice.db
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:94 -   - Users: 1
+2025-05-25 19:16:58 | INFO     | __main__:init_local_db:95 -   - Products: 5
+2025-05-25 19:24:43 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:24:43 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:24:43 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:24:43 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:25:08 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:25:08 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:25:08 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:25:08 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:25:08 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:25:08 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:25:08 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:25:08 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:25:08 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:25:08 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:25:08 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:25:08 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:25:08 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:25:08 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:25:08 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:27:58 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:20 - Starting local database initialization...
+2025-05-25 19:27:58 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:27:58 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:27:58 | WARNING  | local_db.local_db_manager:create_user:76 - User with email admin@example.com already exists
+2025-05-25 19:27:58 | WARNING  | __main__:init_local_db:36 - Admin user may already exist
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Wireless Bluetooth Headphones', 'High-quality wireless headphones with noise cancellation', 9999, 'WBH-001', 'Electronics', 50, '2025-05-25 18:27:58.711046', '2025-05-25 18:27:58.711046', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Ergonomic Office Chair', 'Comfortable office chair with lumbar support', 24999, 'EOC-002', 'Furniture', 15, '2025-05-25 18:27:58.717245', '2025-05-25 18:27:58.717245', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Stainless Steel Water Bottle', 'Insulated water bottle that keeps drinks cold for 24 hours', 2499, 'SSWB-003', 'Lifestyle', 100, '2025-05-25 18:27:58.719583', '2025-05-25 18:27:58.719583', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Professional Coffee Maker', 'Programmable coffee maker with thermal carafe', 12999, 'PCM-004', 'Appliances', 25, '2025-05-25 18:27:58.721111', '2025-05-25 18:27:58.721111', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Smart Fitness Watch', 'Fitness tracker with heart rate monitor and GPS', 19999, 'SFW-005', 'Electronics', 75, '2025-05-25 18:27:58.723025', '2025-05-25 18:27:58.723025', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:88 - Created 0 sample products
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:92 - Database initialization complete:
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:93 -   - Database file: instance\chaoffice.db
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:94 -   - Users: 1
+2025-05-25 19:27:58 | INFO     | __main__:init_local_db:95 -   - Products: 5
+2025-05-25 19:29:41 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:29:41 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:29:41 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:29:41 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:29:41 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:29:41 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:29:41 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:29:41 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:29:41 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:29:41 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:29:41 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:29:41 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:29:41 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:29:42 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:29:42 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:33:44 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:20 - Starting local database initialization...
+2025-05-25 19:33:44 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:33:44 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:33:44 | WARNING  | local_db.local_db_manager:create_user:76 - User with email admin@example.com already exists
+2025-05-25 19:33:44 | WARNING  | __main__:init_local_db:36 - Admin user may already exist
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Wireless Bluetooth Headphones', 'High-quality wireless headphones with noise cancellation', 9999, 'WBH-001', 'Electronics', 50, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Ergonomic Office Chair', 'Comfortable office chair with lumbar support', 24999, 'EOC-002', 'Furniture', 15, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Stainless Steel Water Bottle', 'Insulated water bottle that keeps drinks cold for 24 hours', 2499, 'SSWB-003', 'Lifestyle', 100, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Professional Coffee Maker', 'Programmable coffee maker with thermal carafe', 12999, 'PCM-004', 'Appliances', 25, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Smart Fitness Watch', 'Fitness tracker with heart rate monitor and GPS', 19999, 'SFW-005', 'Electronics', 75, '2025-05-25 18:33:44.658169', '2025-05-25 18:33:44.658169', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:88 - Created 0 sample products
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:92 - Database initialization complete:
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:93 -   - Database file: instance\chaoffice.db
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:94 -   - Users: 1
+2025-05-25 19:33:44 | INFO     | __main__:init_local_db:95 -   - Products: 5
+2025-05-25 19:33:46 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:33:46 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:33:46 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:33:46 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:33:46 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:33:46 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:33:46 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:33:46 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:33:46 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:33:46 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:33:46 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:33:46 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:33:46 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:33:47 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:33:47 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:34:01 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:34:01 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:34:01 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:34:01 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:34:01 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:34:01 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:34:01 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:34:01 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:34:01 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:34:01 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:34:01 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:34:01 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:34:01 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:34:01 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:34:01 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:51:57 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:51:57 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:51:57 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:51:57 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:51:57 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:51:57 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:51:57 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:51:57 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:51:57 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:51:57 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:51:57 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:51:57 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:51:57 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:51:57 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:51:57 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:53:25 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:53:25 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:53:25 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:53:25 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:53:25 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:53:25 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:53:25 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:53:25 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:53:25 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:53:25 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:53:25 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:53:25 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:53:25 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:53:25 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:53:25 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 19:53:50 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 19:53:50 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 19:53:50 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 19:53:50 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 19:53:50 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 19:53:50 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 19:53:50 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 19:53:50 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 19:53:50 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 19:53:50 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 19:53:50 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 19:53:50 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 19:53:50 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 19:53:50 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:53:50 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:00:29 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:00:29 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:00:29 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:00:29 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:00:29 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:00:29 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:00:29 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:00:29 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:00:29 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:00:29 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:00:29 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:00:29 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:00:29 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:00:30 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:00:30 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:01:56 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:01:56 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:01:56 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:01:56 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:01:56 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:01:56 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:01:56 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:01:56 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:01:56 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:01:56 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:01:56 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:01:56 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:01:56 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:01:56 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:01:56 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:02:59 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:02:59 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:02:59 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:02:59 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:02:59 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:02:59 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:02:59 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:02:59 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:02:59 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:02:59 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:02:59 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:02:59 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:02:59 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:03:00 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:03:00 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:07:02 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:07:02 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:07:02 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:07:02 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:07:02 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:07:02 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:07:02 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:07:02 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:07:02 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:07:02 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:07:02 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:07:02 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:07:02 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:07:02 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:07:02 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:07:40 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:07:40 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:07:40 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:07:40 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:07:40 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:07:40 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:07:40 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:07:40 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:07:40 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:07:40 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:07:40 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:07:40 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:07:40 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:07:41 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:07:41 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 20:12:20 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 20:12:20 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 20:12:20 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 20:12:20 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 20:12:20 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 20:12:20 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 20:12:20 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 20:12:20 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 20:12:20 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 20:12:20 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 20:12:20 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 20:12:20 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 20:12:20 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 20:12:21 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:12:21 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 21:10:47 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 21:10:47 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 21:10:47 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 21:10:47 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 21:10:47 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 21:10:47 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 21:10:47 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 21:10:47 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 21:10:47 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 21:10:47 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 21:10:47 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 21:10:47 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 21:10:47 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 21:10:48 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:10:48 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 21:11:04 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 21:11:04 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 21:11:04 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 21:11:04 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 21:11:04 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 21:11:04 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 21:11:04 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 21:11:04 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 21:11:04 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 21:11:04 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 21:11:04 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 21:11:04 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 21:11:04 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 21:11:04 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:11:04 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 21:12:13 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 21:12:13 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 21:12:13 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 21:12:13 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 21:12:13 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 21:12:13 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 21:12:13 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 21:12:13 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 21:12:13 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 21:12:13 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 21:12:13 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 21:12:13 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 21:12:13 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 21:12:13 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:12:13 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 21:12:27 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 21:12:27 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 21:12:27 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 21:12:27 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 21:12:27 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 21:12:27 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 21:12:27 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 21:12:27 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 21:12:27 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 21:12:27 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 21:12:27 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 21:12:27 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 21:12:27 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 21:12:27 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:12:27 | INFO     | __main__:run:155 - Application shutting down
+2025-05-25 21:15:47 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-25 21:15:47 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-25 21:15:47 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-25 21:15:47 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-25 21:15:47 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance\chaoffice.db
+2025-05-25 21:15:47 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-25 21:15:47 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-25 21:15:47 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-25 21:15:47 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-25 21:15:47 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-25 21:15:47 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-25 21:15:47 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-25 21:15:47 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-25 21:15:47 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:15:47 | INFO     | __main__:run:155 - Application shutting down

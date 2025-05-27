@@ -1,25 +1,21 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls.Material 2.15
-// import BusinessApp 1.0  // Removed - using context properties
+import "../styles"
+import "../components"
 
-Item {
-    id: productsView
+Rectangle {
+    id: root
     
-    property var products: productHandler.products
-    property bool isLoading: productHandler.isLoading
-    property bool showAddDialog: false
-    property bool showEditDialog: false
+    property bool isOnlineMode: true
     property var selectedProduct: null
     
-    Component.onCompleted: {
-        productHandler.loadProducts()
-    }
+    color: Theme.backgroundColor
     
     ColumnLayout {
         anchors.fill: parent
-        spacing: 16
+        anchors.margins: Theme.spacing * 2
+        spacing: Theme.spacing * 2
         
         // Header
         RowLayout {
@@ -27,300 +23,315 @@ Item {
             
             Text {
                 text: "Products"
-                font.pixelSize: 28
-                font.bold: true
-                color: themeManager.textColor
+                font.pixelSize: Theme.fontSizeXLarge
+                font.weight: Font.Bold
+                color: Theme.textColor
                 Layout.fillWidth: true
             }
             
-            Button {
-                text: "Add Product"
-                Material.background: themeManager.primaryColor
-                Material.foreground: "white"
-                onClicked: productsView.showAddDialog = true
-            }
-            
-            Button {
-                text: "Refresh"
-                flat: true
-                Material.foreground: themeManager.primaryColor
-                onClicked: productHandler.loadProducts()
+            CustomButton {
+                text: "Sync"
+                variant: "secondary"
+                enabled: !root.isOnlineMode
+                onClicked: console.log("Sync products")
             }
         }
         
         // Search and filters
         RowLayout {
             Layout.fillWidth: true
-            spacing: 16
+            spacing: Theme.spacing
             
-            TextField {
-                id: searchField
+            CustomInput {
+                id: searchInput
                 Layout.fillWidth: true
                 placeholderText: "Search products..."
-                Material.accent: themeManager.primaryColor
-                onTextChanged: productHandler.searchProducts(text)
+                onTextChanged: filterProducts()
             }
             
             ComboBox {
                 id: categoryFilter
+                model: ["All Categories", "Electronics", "Accessories", "Software"]
+                Layout.preferredWidth: 200
+                onCurrentTextChanged: filterProducts()
+            }
+            
+            ComboBox {
+                id: stockFilter
+                model: ["All Stock", "In Stock", "Low Stock", "Out of Stock"]
                 Layout.preferredWidth: 150
-                model: ["All Categories", "Electronics", "Clothing", "Food", "Books", "Other"]
-                Material.accent: themeManager.primaryColor
-                onCurrentTextChanged: {
-                    if (currentText !== "All Categories") {
-                        productHandler.filterByCategory(currentText)
-                    } else {
-                        productHandler.clearFilters()
-                    }
-                }
+                onCurrentTextChanged: filterProducts()
             }
         }
         
         // Products table
-        Rectangle {
+        DataTableView {
+            id: productsTable
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: themeManager.surfaceColor
-            border.color: themeManager.dividerColor
-            border.width: 1
-            radius: 8
             
-            ColumnLayout {
-                anchors.fill: parent
-                anchors.margins: 16
-                spacing: 0
+            columns: [
+                {
+                    "field": "name",
+                    "title": "Product Name",
+                    "width": 250,
+                    "sortable": true
+                },
+                {
+                    "field": "category",
+                    "title": "Category",
+                    "width": 150,
+                    "sortable": true
+                },
+                {
+                    "field": "price",
+                    "title": "Price",
+                    "width": 100,
+                    "sortable": true,
+                    "format": function(value) { return "$" + parseFloat(value).toFixed(2) }
+                },
+                {
+                    "field": "stock_quantity",
+                    "title": "Stock",
+                    "width": 100,
+                    "sortable": true
+                },
+                {
+                    "field": "status",
+                    "title": "Status",
+                    "width": 120,
+                    "sortable": true
+                }
+            ]
+            
+            model: ListModel {
+                id: productsModel
                 
-                // Table header
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 40
-                    color: Qt.lighter(themeManager.primaryColor, 1.8)
+                ListElement {
+                    id: 1
+                    name: "Gaming Mouse X1"
+                    category: "Electronics"
+                    price: 45.99
+                    stock_quantity: 25
+                    status: "Active"
+                    description: "High-precision gaming mouse with RGB lighting"
+                }
+                ListElement {
+                    id: 2
+                    name: "Wireless Keyboard"
+                    category: "Electronics"
+                    price: 89.99
+                    stock_quantity: 12
+                    status: "Active"
+                    description: "Mechanical wireless keyboard"
+                }
+                ListElement {
+                    id: 3
+                    name: "USB Cable"
+                    category: "Accessories"
+                    price: 12.99
+                    stock_quantity: 5
+                    status: "Low Stock"
+                    description: "USB-C to USB-A cable, 2 meters"
+                }
+                ListElement {
+                    id: 4
+                    name: "Software License"
+                    category: "Software"
+                    price: 199.99
+                    stock_quantity: 0
+                    status: "Digital"
+                    description: "Annual software license"
+                }
+            }
+            
+            onRowClicked: function(row, rowData) {
+                root.selectedProduct = rowData
+                productDetailsPanel.visible = true
+            }
+            
+            onRowDoubleClicked: function(row, rowData) {
+                editProductDialog.product = rowData
+                editProductDialog.open()
+            }
+        }
+    }
+    
+    // Product details panel
+    Rectangle {
+        id: productDetailsPanel
+        width: 300
+        height: parent.height
+        anchors.right: parent.right
+        color: Theme.cardColor
+        border.color: Theme.borderColor
+        border.width: 1
+        visible: false
+        
+        Column {
+            anchors.fill: parent
+            anchors.margins: Theme.spacing
+            spacing: Theme.spacing
+            
+            Row {
+                width: parent.width
+                
+                Text {
+                    text: "Product Details"
+                    font.pixelSize: Theme.fontSizeLarge
+                    font.weight: Font.Bold
+                    color: Theme.textColor
+                    width: parent.width - 30
+                }
+                
+                SvgIcon {
+                    source: "qrc:/assets/icons/x.svg"
+                    size: 20
+                    color: Theme.textColorSecondary
                     
-                    RowLayout {
+                    MouseArea {
                         anchors.fill: parent
-                        anchors.margins: 8
-                        spacing: 16
-                        
-                        Text {
-                            text: "Name"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.preferredWidth: 200
-                        }
-                        
-                        Text {
-                            text: "SKU"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.preferredWidth: 120
-                        }
-                        
-                        Text {
-                            text: "Category"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.preferredWidth: 100
-                        }
-                        
-                        Text {
-                            text: "Price"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.preferredWidth: 80
-                        }
-                        
-                        Text {
-                            text: "Stock"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.preferredWidth: 80
-                        }
-                        
-                        Text {
-                            text: "Actions"
-                            font.bold: true
-                            color: themeManager.textColor
-                            Layout.fillWidth: true
-                        }
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: productDetailsPanel.visible = false
+                    }
+                }
+            }
+            
+            Rectangle {
+                width: parent.width
+                height: 1
+                color: Theme.borderColor
+            }
+            
+            Column {
+                width: parent.width
+                spacing: Theme.spacingSmall
+                visible: root.selectedProduct !== null
+                
+                Text {
+                    text: root.selectedProduct ? root.selectedProduct.name : ""
+                    font.pixelSize: Theme.fontSizeLarge
+                    font.weight: Font.Medium
+                    color: Theme.textColor
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                }
+                
+                Text {
+                    text: root.selectedProduct ? root.selectedProduct.description : ""
+                    font.pixelSize: Theme.fontSize
+                    color: Theme.textColorSecondary
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                }
+                
+                Row {
+                    spacing: Theme.spacing
+                    
+                    Text {
+                        text: "Price:"
+                        font.pixelSize: Theme.fontSize
+                        color: Theme.textColorSecondary
+                    }
+                    
+                    Text {
+                        text: root.selectedProduct ? "$" + parseFloat(root.selectedProduct.price).toFixed(2) : ""
+                        font.pixelSize: Theme.fontSize
+                        font.weight: Font.Bold
+                        color: Theme.textColor
                     }
                 }
                 
-                // Products list
-                ListView {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                Row {
+                    spacing: Theme.spacing
                     
-                    model: products
-                    
-                    delegate: Rectangle {
-                        width: parent.width
-                        height: 60
-                        color: index % 2 === 0 ? "transparent" : Qt.rgba(0, 0, 0, 0.02)
-                        border.color: themeManager.dividerColor
-                        border.width: 1
-                        
-                        MouseArea {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onEntered: parent.color = Qt.rgba(0, 0, 0, 0.05)
-                            onExited: parent.color = index % 2 === 0 ? "transparent" : Qt.rgba(0, 0, 0, 0.02)
-                        }
-                        
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.margins: 8
-                            spacing: 16
-                            
-                            // Product name
-                            ColumnLayout {
-                                Layout.preferredWidth: 200
-                                spacing: 2
-                                
-                                Text {
-                                    text: modelData.name || "N/A"
-                                    font.bold: true
-                                    color: themeManager.textColor
-                                    elide: Text.ElideRight
-                                    Layout.fillWidth: true
-                                }
-                                
-                                Text {
-                                    text: modelData.description || ""
-                                    font.pixelSize: 12
-                                    color: themeManager.secondaryTextColor
-                                    elide: Text.ElideRight
-                                    Layout.fillWidth: true
-                                }
-                            }
-                            
-                            // SKU
-                            Text {
-                                Layout.preferredWidth: 120
-                                text: modelData.sku || "N/A"
-                                color: themeManager.textColor
-                                elide: Text.ElideRight
-                            }
-                            
-                            // Category
-                            Rectangle {
-                                Layout.preferredWidth: 100
-                                Layout.preferredHeight: 24
-                                color: themeManager.accentColor
-                                radius: 12
-                                
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: modelData.category || "Other"
-                                    color: "white"
-                                    font.pixelSize: 10
-                                }
-                            }
-                            
-                            // Price
-                            Text {
-                                Layout.preferredWidth: 80
-                                text: "$" + (modelData.price || 0).toFixed(2)
-                                color: themeManager.textColor
-                                font.bold: true
-                            }
-                            
-                            // Stock
-                            Text {
-                                Layout.preferredWidth: 80
-                                text: (modelData.stock_quantity || 0).toString()
-                                color: (modelData.stock_quantity || 0) < (modelData.low_stock_threshold || 10) ? 
-                                      themeManager.errorColor : themeManager.textColor
-                                font.bold: (modelData.stock_quantity || 0) < (modelData.low_stock_threshold || 10)
-                            }
-                            
-                            // Actions
-                            RowLayout {
-                                Layout.fillWidth: true
-                                spacing: 8
-                                
-                                Button {
-                                    text: "Edit"
-                                    flat: true
-                                    Material.foreground: themeManager.primaryColor
-                                    onClicked: {
-                                        productsView.selectedProduct = modelData
-                                        productsView.showEditDialog = true
-                                    }
-                                }
-                                
-                                Button {
-                                    text: "Delete"
-                                    flat: true
-                                    Material.foreground: themeManager.errorColor
-                                    onClicked: {
-                                        deleteConfirmDialog.productToDelete = modelData
-                                        deleteConfirmDialog.open()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    // Empty state
                     Text {
-                        visible: parent.count === 0 && !productsView.isLoading
-                        anchors.centerIn: parent
-                        text: "No products found"
-                        font.pixelSize: 16
-                        color: themeManager.secondaryTextColor
+                        text: "Stock:"
+                        font.pixelSize: Theme.fontSize
+                        color: Theme.textColorSecondary
                     }
                     
-                    // Loading indicator
-                    BusyIndicator {
-                        visible: productsView.isLoading
-                        anchors.centerIn: parent
-                        Material.accent: themeManager.primaryColor
-                        running: true
+                    Text {
+                        text: root.selectedProduct ? root.selectedProduct.stock_quantity.toString() : ""
+                        font.pixelSize: Theme.fontSize
+                        font.weight: Font.Bold
+                        color: root.selectedProduct && root.selectedProduct.stock_quantity < 10 ? 
+                               Theme.errorColor : Theme.textColor
                     }
+                }
+                
+                Row {
+                    spacing: Theme.spacing
+                    
+                    Text {
+                        text: "Category:"
+                        font.pixelSize: Theme.fontSize
+                        color: Theme.textColorSecondary
+                    }
+                    
+                    Text {
+                        text: root.selectedProduct ? root.selectedProduct.category : ""
+                        font.pixelSize: Theme.fontSize
+                        color: Theme.textColor
+                    }
+                }
+                
+                CustomButton {
+                    text: "Edit Product"                    width: parent.width
+                    variant: "primary"
+                    onClicked: {
+                        editProductDialog.product = root.selectedProduct
+                        editProductDialog.open()
+                    }
+                }
+                
+                CustomButton {
+                    text: "Delete Product"
+                    width: parent.width
+                    primary: false
+                    onClicked: deleteConfirmDialog.open()
                 }
             }
         }
     }
     
-    // Add/Edit Product Dialog
-    ProductDialog {
-        id: productDialog
-        visible: productsView.showAddDialog || productsView.showEditDialog
-        isEdit: productsView.showEditDialog
-        product: productsView.selectedProduct
-        
-        onAccepted: {
-            if (isEdit) {
-                productHandler.updateProduct(product.id, productData)
-            } else {
-                productHandler.addProduct(productData)
-            }
-            productsView.showAddDialog = false
-            productsView.showEditDialog = false
-            productsView.selectedProduct = null
-        }
-        
-        onRejected: {
-            productsView.showAddDialog = false
-            productsView.showEditDialog = false
-            productsView.selectedProduct = null
-        }
+    function filterProducts() {
+        // Placeholder for filtering logic
+        console.log("Filtering products:", searchInput.text, categoryFilter.currentText, stockFilter.currentText)
     }
     
-    // Delete confirmation dialog
+    // Add Product Dialog
+    MessagePopup {
+        id: addProductDialog
+        title: "Add New Product"
+        message: "Product addition form would go here"
+        type: "info"
+        autoClose: false
+    }
+    
+    // Edit Product Dialog
+    MessagePopup {
+        id: editProductDialog
+        title: "Edit Product"
+        message: "Product editing form would go here"
+        type: "info"
+        autoClose: false
+        
+        property var product: null
+    }
+    
+    // Delete Confirmation Dialog
     MessagePopup {
         id: deleteConfirmDialog
         title: "Delete Product"
         message: "Are you sure you want to delete this product? This action cannot be undone."
         type: "warning"
-        
-        property var productToDelete: null
+        autoClose: false
         
         onAccepted: {
-            if (productToDelete) {
-                productHandler.deleteProduct(productToDelete.id)
-                productToDelete = null
-            }
+            console.log("Deleting product:", root.selectedProduct.name)
+            // Remove from model logic would go here
+            productDetailsPanel.visible = false
         }
     }
 }

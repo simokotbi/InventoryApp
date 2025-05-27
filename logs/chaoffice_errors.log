@@ -1,0 +1,58 @@
+2025-05-25 19:25:08 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Wireless Bluetooth Headphones', 'High-quality wireless headphones with noise cancellation', 9999, 'WBH-001', 'Electronics', 50, '2025-05-25 18:27:58.711046', '2025-05-25 18:27:58.711046', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Ergonomic Office Chair', 'Comfortable office chair with lumbar support', 24999, 'EOC-002', 'Furniture', 15, '2025-05-25 18:27:58.717245', '2025-05-25 18:27:58.717245', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Stainless Steel Water Bottle', 'Insulated water bottle that keeps drinks cold for 24 hours', 2499, 'SSWB-003', 'Lifestyle', 100, '2025-05-25 18:27:58.719583', '2025-05-25 18:27:58.719583', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Professional Coffee Maker', 'Programmable coffee maker with thermal carafe', 12999, 'PCM-004', 'Appliances', 25, '2025-05-25 18:27:58.721111', '2025-05-25 18:27:58.721111', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:27:58 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Smart Fitness Watch', 'Fitness tracker with heart rate monitor and GPS', 19999, 'SFW-005', 'Electronics', 75, '2025-05-25 18:27:58.723025', '2025-05-25 18:27:58.723025', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:29:42 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Wireless Bluetooth Headphones', 'High-quality wireless headphones with noise cancellation', 9999, 'WBH-001', 'Electronics', 50, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Ergonomic Office Chair', 'Comfortable office chair with lumbar support', 24999, 'EOC-002', 'Furniture', 15, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Stainless Steel Water Bottle', 'Insulated water bottle that keeps drinks cold for 24 hours', 2499, 'SSWB-003', 'Lifestyle', 100, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Professional Coffee Maker', 'Programmable coffee maker with thermal carafe', 12999, 'PCM-004', 'Appliances', 25, '2025-05-25 18:33:44.653868', '2025-05-25 18:33:44.653868', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:44 | ERROR    | local_db.local_db_manager:create_product:147 - Failed to create product: (sqlite3.IntegrityError) UNIQUE constraint failed: products.sku
+[SQL: INSERT INTO products (name, description, price, sku, category, stock_quantity, created_at, updated_at, is_synced) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('Smart Fitness Watch', 'Fitness tracker with heart rate monitor and GPS', 19999, 'SFW-005', 'Electronics', 75, '2025-05-25 18:33:44.658169', '2025-05-25 18:33:44.658169', 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-05-25 19:33:47 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:34:01 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:51:57 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:53:25 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 19:53:50 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:00:30 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:01:56 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:03:00 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:07:02 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:07:41 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 20:12:21 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:10:48 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:11:04 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:12:13 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:12:27 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
+2025-05-25 21:15:47 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created

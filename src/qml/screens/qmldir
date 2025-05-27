@@ -1,5 +1,4 @@
-module Screens
-
+module AppScreens
 LoadingScreen 1.0 LoadingScreen.qml
 LoginScreen 1.0 LoginScreen.qml
 MainApplication 1.0 MainApplication.qml

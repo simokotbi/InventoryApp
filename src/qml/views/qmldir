@@ -1,9 +1,4 @@
-module Views
-
+module AppViews
 DashboardView 1.0 DashboardView.qml
 ProductsView 1.0 ProductsView.qml
-CustomersView 1.0 CustomersView.qml
-SalesView 1.0 SalesView.qml
-InventoryView 1.0 InventoryView.qml
-ReportsView 1.0 ReportsView.qml
 SettingsView 1.0 SettingsView.qml

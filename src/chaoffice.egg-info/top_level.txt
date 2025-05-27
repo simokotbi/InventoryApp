@@ -1,7 +1,8 @@
 api_client
+app_logger
+assets
+business_logic
 core
 local_db
-logging
 qml
 qml_handlers
-services

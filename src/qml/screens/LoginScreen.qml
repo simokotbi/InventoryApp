@@ -1,371 +1,271 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-// import BusinessApp 1.0  // Temporarily disabled
+import "../styles"
+import "../components"
 
-Item {
-    id: loginScreen
+Rectangle {
+    id: root
     
-    signal loginSuccess()
-      Rectangle {
+    signal loginRequested(string email, string password)
+    signal offlineModeRequested()
+    
+    property bool isLoading: false
+    property string errorMessage: ""
+    
+    color: Theme.backgroundColor
+    
+    // Background pattern
+    Rectangle {
         anchors.fill: parent
-        color: themeManager.backgroundColor
+        color: Theme.primaryColor
+        opacity: 0.05
         
-        // Split layout: Left side branding, Right side login form
-        RowLayout {
+        // Subtle pattern
+        Canvas {
             anchors.fill: parent
-            spacing: 0
-            
-            // Left side - Branding
-            Rectangle {
-                Layout.fillHeight: true
-                Layout.preferredWidth: parent.width * 0.4
-                color: themeManager.primaryColor
+            onPaint: {
+                var ctx = getContext("2d")
+                ctx.strokeStyle = Theme.primaryColor
+                ctx.lineWidth = 1
+                ctx.globalAlpha = 0.1
                 
-                ColumnLayout {
-                    anchors.centerIn: parent
-                    spacing: themeManager.spacingLarge
+                var spacing = 50
+                for (var x = 0; x <= width; x += spacing) {
+                    ctx.beginPath()
+                    ctx.moveTo(x, 0)
+                    ctx.lineTo(x, height)
+                    ctx.stroke()
+                }
+                for (var y = 0; y <= height; y += spacing) {
+                    ctx.beginPath()
+                    ctx.moveTo(0, y)
+                    ctx.lineTo(width, y)
+                    ctx.stroke()
+                }
+        }
+        }
+    }
+    
+    // Main content
+    Rectangle {
+        width: Math.min(400, parent.width * 0.9)
+        height: Math.min(600, parent.height * 0.9)
+        anchors.centerIn: parent
+        color: Theme.backgroundColor
+        radius: Theme.cardRadius
+        border.color: Theme.borderColor
+        border.width: 1
+        
+        // Simple shadow effect using multiple rectangles
+        Rectangle {
+            anchors.fill: parent
+            anchors.topMargin: 4
+            anchors.leftMargin: 4
+            color: "#20000000"
+            radius: parent.radius
+            z: -1
+        }
+        Rectangle {
+            anchors.fill: parent
+            anchors.topMargin: 2
+            anchors.leftMargin: 2
+            color: "#10000000"
+            radius: parent.radius
+            z: -2
+        }
+        
+        Column {
+            anchors.fill: parent
+            anchors.margins: Theme.spacing * 2
+            spacing: Theme.spacing * 1.5
+            
+            // Header
+            Column {
+                spacing: Theme.spacingSmall
+                anchors.horizontalCenter: parent.horizontalCenter
+                
+                Rectangle {
+                    width: 80
+                    height: 80
+                    radius: 40
+                    color: Theme.primaryColor
+                    anchors.horizontalCenter: parent.horizontalCenter
                     
-                    // Logo
+                    Text {
+                        anchors.centerIn: parent
+                        text: "CO"
+                        font.pixelSize: 32
+                        font.weight: Font.Bold
+                        color: "white"
+                    }
+                }
+                
+                Text {
+                    text: "ChaOffice"
+                    font.pixelSize: Theme.fontSizeXLarge
+                    font.weight: Font.Bold
+                    color: Theme.textColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                
+                Text {
+                    text: "Sign in to your account"
+                    font.pixelSize: Theme.fontSize
+                    color: Theme.textColorSecondary
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+            
+            // Login form
+            Column {
+                spacing: Theme.spacing
+                width: parent.width
+                
+                CustomInput {
+                    id: emailInput
+                    width: parent.width
+                    placeholderText: "Email address"
+                    inputMethodHints: Qt.ImhEmailCharactersOnly
+                    enabled: !root.isLoading
+                    
+                    KeyNavigation.tab: passwordInput
+                    
+                    onAccepted: {
+                        if (passwordInput.text.length > 0) {
+                            loginButton.clicked()
+                        } else {
+                            passwordInput.forceActiveFocus()
+                        }
+                    }
+                }
+                
+                CustomInput {
+                    id: passwordInput
+                    width: parent.width
+                    placeholderText: "Password"
+                    echoMode: TextInput.Password
+                    enabled: !root.isLoading
+                    
+                    KeyNavigation.tab: loginButton
+                    
+                    onAccepted: loginButton.clicked()
+                }
+                
+                // Error message
+                Text {
+                    text: root.errorMessage
+                    color: Theme.errorColor
+                    font.pixelSize: Theme.fontSizeSmall
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    visible: root.errorMessage !== ""
+                    
                     Rectangle {
-                        width: 100
-                        height: 100
-                        radius: 50
-                        color: "white"
-                        Layout.alignment: Qt.AlignHCenter
+                        anchors.fill: parent
+                        anchors.margins: -Theme.spacingSmall
+                        color: Theme.errorColor
+                        opacity: 0.1
+                        radius: 4
+                        visible: parent.visible
+                    }
+                }
+                
+                CustomButton {                    id: loginButton
+                    text: root.isLoading ? "Signing in..." : "Sign In"
+                    width: parent.width
+                    variant: "primary"
+                    enabled: !root.isLoading && emailInput.text.length > 0 && passwordInput.text.length > 0
+                    
+                    onClicked: {
+                        root.errorMessage = ""
+                        root.loginRequested(emailInput.text, passwordInput.text)
+                    }
+                    
+                    // Loading indicator
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10
+                        color: "transparent"
+                        border.color: "white"
+                        border.width: 2
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.spacing
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: root.isLoading
                         
-                        Text {
-                            anchors.centerIn: parent
-                            text: "CHA"
-                            font.pixelSize: 28
-                            font.bold: true
-                            color: themeManager.primaryColor
+                        Rectangle {
+                            width: 4
+                            height: 4
+                            radius: 2
+                            color: "white"
+                            anchors.top: parent.top
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.topMargin: 1
                         }
-                    }
-                    
-                    Text {
-                        text: "ChaOffice"
-                        font.pixelSize: themeManager.xlargeFontSize
-                        font.bold: true
-                        color: "white"
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-                    
-                    Text {
-                        text: "Business Management Solution"
-                        font.pixelSize: themeManager.mediumFontSize
-                        color: "white"
-                        opacity: 0.8
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-                    
-                    ColumnLayout {
-                        spacing: themeManager.spacing
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.topMargin: themeManager.spacingLarge
                         
-                        Text {
-                            text: "✓ Point of Sale System"
-                            color: "white"
-                            font.pixelSize: themeManager.normalFontSize
-                        }
-                        Text {
-                            text: "✓ Inventory Management"
-                            color: "white"
-                            font.pixelSize: themeManager.normalFontSize
-                        }
-                        Text {
-                            text: "✓ Customer Management"
-                            color: "white"
-                            font.pixelSize: themeManager.normalFontSize
-                        }
-                        Text {
-                            text: "✓ Sales Reports & Analytics"
-                            color: "white"
-                            font.pixelSize: themeManager.normalFontSize
+                        RotationAnimation on rotation {
+                            running: root.isLoading
+                            loops: Animation.Infinite
+                            from: 0
+                            to: 360
+                            duration: 1000
                         }
                     }
                 }
             }
-            
-            // Right side - Login form
+              // Divider
             Rectangle {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                color: themeManager.surfaceColor
+                width: parent.width
+                height: 1
+                color: Theme.borderColor
                 
-                ScrollView {
-                    anchors.fill: parent
-                    contentHeight: loginForm.height + themeManager.spacingXLarge * 2
+                Rectangle {
+                    anchors.centerIn: parent
+                    color: Theme.backgroundColor
+                    width: orText.width + Theme.spacing
+                    height: orText.height + Theme.spacingSmall
                     
-                    ColumnLayout {
-                        id: loginForm
+                    Text {
+                        id: orText
                         anchors.centerIn: parent
-                        width: Math.min(400, parent.width - themeManager.spacingXLarge * 2)
-                        spacing: themeManager.spacingMedium
-                        
-                        // Header
-                        Text {
-                            text: "Welcome Back"
-                            font.pixelSize: themeManager.xlargeFontSize
-                            font.bold: true
-                            color: themeManager.textPrimaryColor
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.bottomMargin: themeManager.spacing
-                        }
-                        
-                        Text {
-                            text: "Sign in to your account"
-                            font.pixelSize: themeManager.mediumFontSize
-                            color: themeManager.textSecondaryColor
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.bottomMargin: themeManager.spacingLarge
-                        }
-                        
-                        // Username field
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: themeManager.spacingSmall
-                            
-                            Text {
-                                text: "Username or Email"
-                                color: themeManager.textPrimaryColor
-                                font.pixelSize: themeManager.normalFontSize
-                            }
-                            
-                            TextField {
-                                id: usernameField
-                                Layout.fillWidth: true
-                                placeholderText: "Enter your username or email"
-                                selectByMouse: true
-                                
-                                background: Rectangle {
-                                    color: themeManager.backgroundColor
-                                    border.color: usernameField.activeFocus ? themeManager.primaryColor : themeManager.borderColor
-                                    border.width: 1
-                                    radius: themeManager.cornerRadius
-                                }
-                                
-                                Keys.onReturnPressed: passwordField.forceActiveFocus()
-                            }
-                        }
-                        
-                        // Password field
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: themeManager.spacingSmall
-                            
-                            Text {
-                                text: "Password"
-                                color: themeManager.textPrimaryColor
-                                font.pixelSize: themeManager.normalFontSize
-                            }
-                            
-                            TextField {
-                                id: passwordField
-                                Layout.fillWidth: true
-                                placeholderText: "Enter your password"
-                                echoMode: TextInput.Password
-                                selectByMouse: true
-                                
-                                background: Rectangle {
-                                    color: themeManager.backgroundColor
-                                    border.color: passwordField.activeFocus ? themeManager.primaryColor : themeManager.borderColor
-                                    border.width: 1
-                                    radius: themeManager.cornerRadius
-                                }
-                                
-                                Keys.onReturnPressed: loginButton.clicked()
-                            }
-                        }
-                        
-                        // Remember me checkbox
-                        CheckBox {
-                            id: rememberMeCheck
-                            text: "Remember me"
-                            Layout.topMargin: themeManager.spacing
-                            
-                            indicator: Rectangle {
-                                implicitWidth: 20
-                                implicitHeight: 20
-                                x: rememberMeCheck.leftPadding
-                                y: parent.height / 2 - height / 2
-                                radius: 3
-                                border.color: rememberMeCheck.checked ? themeManager.primaryColor : themeManager.borderColor
-                                color: rememberMeCheck.checked ? themeManager.primaryColor : "transparent"
-                                
-                                Text {
-                                    text: "✓"
-                                    color: "white"
-                                    anchors.centerIn: parent
-                                    visible: rememberMeCheck.checked
-                                    font.pixelSize: 14
-                                }
-                            }
-                        }
-                        
-                        // Login button
-                        Button {
-                            id: loginButton
-                            text: "Sign In"
-                            Layout.fillWidth: true
-                            Layout.topMargin: themeManager.spacingMedium
-                            enabled: usernameField.text.length > 0 && passwordField.text.length > 0 && !isLoggingIn
-                            
-                            property bool isLoggingIn: false
-                            
-                            background: Rectangle {
-                                color: loginButton.enabled ? 
-                                    (loginButton.pressed ? themeManager.primaryDarkColor : themeManager.primaryColor) : 
-                                    themeManager.borderColor
-                                radius: themeManager.cornerRadius
-                                
-                                Behavior on color {
-                                    ColorAnimation { duration: themeManager.animationDurationShort }
-                                }
-                            }
-                            
-                            contentItem: RowLayout {
-                                spacing: themeManager.spacing
-                                
-                                BusyIndicator {
-                                    visible: loginButton.isLoggingIn
-                                    running: loginButton.isLoggingIn
-                                    Layout.preferredWidth: 20
-                                    Layout.preferredHeight: 20
-                                }
-                                
-                                Text {
-                                    text: loginButton.isLoggingIn ? "Signing In..." : "Sign In"
-                                    color: "white"
-                                    font.pixelSize: themeManager.mediumFontSize
-                                    font.bold: true
-                                    Layout.fillWidth: true
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
-                            }
-                            
-                            onClicked: {
-                                if (usernameField.text.length === 0) {
-                                    showMessage("Please enter your username or email", "error")
-                                    return
-                                }
-                                
-                                if (passwordField.text.length === 0) {
-                                    showMessage("Please enter your password", "error")
-                                    return
-                                }
-                                
-                                isLoggingIn = true
-                                
-                                var result = authHandler.login(
-                                    usernameField.text,
-                                    passwordField.text,
-                                    rememberMeCheck.checked
-                                )
-                                
-                                if (result.success) {
-                                    showMessage("Login successful! Welcome back.", "success")
-                                    loginScreen.loginSuccess()
-                                } else {
-                                    showMessage(result.message || "Login failed", "error")
-                                }
-                                
-                                isLoggingIn = false
-                            }
-                        }
-                        
-                        // Divider
-                        Rectangle {
-                            Layout.fillWidth: true
-                            height: 1
-                            color: themeManager.dividerColor
-                            Layout.topMargin: themeManager.spacingMedium
-                            Layout.bottomMargin: themeManager.spacingMedium
-                        }
-                        
-                        // Demo credentials info
-                        Rectangle {
-                            Layout.fillWidth: true
-                            color: themeManager.infoColor
-                            opacity: 0.1
-                            radius: themeManager.cornerRadius
-                            height: demoInfo.height + themeManager.spacingMedium
-                            
-                            ColumnLayout {
-                                id: demoInfo
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.margins: themeManager.spacingMedium
-                                spacing: themeManager.spacingSmall
-                                
-                                Text {
-                                    text: "Demo Credentials:"
-                                    color: themeManager.infoColor
-                                    font.pixelSize: themeManager.normalFontSize
-                                    font.bold: true
-                                }
-                                
-                                Text {
-                                    text: "Admin: admin@chaoffice.com / admin123"
-                                    color: themeManager.textSecondaryColor
-                                    font.pixelSize: themeManager.smallFontSize
-                                }
-                                
-                                Text {
-                                    text: "Manager: manager@chaoffice.com / manager123"
-                                    color: themeManager.textSecondaryColor
-                                    font.pixelSize: themeManager.smallFontSize
-                                }
-                                
-                                Text {
-                                    text: "Employee: employee@chaoffice.com / employee123"
-                                    color: themeManager.textSecondaryColor
-                                    font.pixelSize: themeManager.smallFontSize
-                                }
-                            }
-                        }
-                        
-                        // Theme toggle
-                        RowLayout {
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.topMargin: themeManager.spacingMedium
-                            
-                            Text {
-                                text: "Theme:"
-                                color: themeManager.textSecondaryColor
-                                font.pixelSize: themeManager.normalFontSize
-                            }
-                            
-                            Button {
-                                text: themeManager.currentTheme === "light" ? "🌙 Dark" : "☀️ Light"
-                                flat: true
-                                
-                                onClicked: themeManager.toggleTheme()
-                                
-                                background: Rectangle {
-                                    color: "transparent"
-                                    border.color: themeManager.borderColor
-                                    border.width: 1
-                                    radius: themeManager.cornerRadius
-                                }
-                            }
-                        }
+                        text: "OR"
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.textColorSecondary
                     }
                 }
+            }
+            
+            // Offline mode
+            CustomButton {                text: "Continue Offline"
+                width: parent.width
+                variant: "secondary"
+                enabled: !root.isLoading
+                
+                onClicked: root.offlineModeRequested()
+            }
+            
+            // Footer
+            Text {
+                text: "Offline mode uses local data only.\nOnline features will be disabled."
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.textColorSecondary
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                wrapMode: Text.WordWrap
             }
         }
     }
     
-    // Message notification
-    function showMessage(message, type) {
-        messagePopup.show(message, type)
+    function clearForm() {
+        emailInput.text = ""
+        passwordInput.text = ""
+        root.errorMessage = ""
     }
     
-    // Message popup
-    MessagePopup {
-        id: messagePopup
-        anchors.centerIn: parent
+    function focusEmail() {
+        emailInput.forceActiveFocus()
     }
 }
