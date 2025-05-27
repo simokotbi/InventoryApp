@@ -176,7 +176,6 @@ Rectangle {
 
                         CustomButton {
                             text: "Sync Now"
-                            primary: false
                             onClicked: console.log("Manual sync triggered")
                         }
 
@@ -219,19 +218,16 @@ Rectangle {
 
                         CustomButton {
                             text: "Backup Database"
-                            primary: false
                             onClicked: backupDialog.open()
                         }
 
                         CustomButton {
                             text: "Reset Database"
-                            primary: false
                             onClicked: resetDialog.open()
                         }
 
                         CustomButton {
                             text: "Import Data"
-                            primary: false
                             onClicked: console.log("Import data")
                         }
 
@@ -310,7 +306,6 @@ Rectangle {
 
                         CustomButton {
                             text: "Check for Updates"
-                            primary: false
                             enabled: root.isOnlineMode
                             onClicked: console.log("Check for updates")
                         }
@@ -350,21 +345,18 @@ Rectangle {
 
                         CustomButton {
                             text: "Documentation"
-                            primary: false
                             enabled: root.isOnlineMode
                             onClicked: console.log("Open documentation")
                         }
 
                         CustomButton {
                             text: "Support"
-                            primary: false
                             enabled: root.isOnlineMode
                             onClicked: console.log("Open support")
                         }
 
                         CustomButton {
                             text: "Licenses"
-                            primary: false
                             onClicked: licensesDialog.open()
                         }
 

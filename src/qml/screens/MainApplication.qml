@@ -334,7 +334,6 @@ Rectangle {
                             text: "Logout"
                             width: parent.width - Theme.spacing * 2
                             anchors.horizontalCenter: parent.horizontalCenter
-                            primary: false
                             
                             onClicked: root.logoutRequested()
                         }

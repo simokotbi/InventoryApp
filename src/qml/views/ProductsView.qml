@@ -108,7 +108,7 @@ Rectangle {
                 id: productsModel
                 
                 ListElement {
-                    id: 1
+                    Id: 1
                     name: "Gaming Mouse X1"
                     category: "Electronics"
                     price: 45.99
@@ -117,7 +117,7 @@ Rectangle {
                     description: "High-precision gaming mouse with RGB lighting"
                 }
                 ListElement {
-                    id: 2
+                    Id: 2
                     name: "Wireless Keyboard"
                     category: "Electronics"
                     price: 89.99
@@ -126,7 +126,7 @@ Rectangle {
                     description: "Mechanical wireless keyboard"
                 }
                 ListElement {
-                    id: 3
+                    Id: 3
                     name: "USB Cable"
                     category: "Accessories"
                     price: 12.99
@@ -135,7 +135,7 @@ Rectangle {
                     description: "USB-C to USB-A cable, 2 meters"
                 }
                 ListElement {
-                    id: 4
+                    Id: 4
                     name: "Software License"
                     category: "Software"
                     price: 199.99
@@ -277,7 +277,8 @@ Rectangle {
                 }
                 
                 CustomButton {
-                    text: "Edit Product"                    width: parent.width
+		    text: "Edit Product"
+	            width: parent.width
                     variant: "primary"
                     onClicked: {
                         editProductDialog.product = root.selectedProduct
@@ -288,7 +289,6 @@ Rectangle {
                 CustomButton {
                     text: "Delete Product"
                     width: parent.width
-                    primary: false
                     onClicked: deleteConfirmDialog.open()
                 }
             }

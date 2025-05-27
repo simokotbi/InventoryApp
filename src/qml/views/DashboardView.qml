@@ -95,7 +95,6 @@ Rectangle {
                     
                     CustomButton {
                         text: "Sync Data"
-                        primary: false
                         enabled: !root.isOnlineMode
                         Layout.preferredWidth: 150
                         onClicked: console.log("Sync data clicked")

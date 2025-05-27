@@ -350,3 +350,19 @@
 2025-05-25 21:15:47 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
 2025-05-25 21:15:47 | ERROR    | __main__:load_qml:110 - Failed to load QML - no root objects created
 2025-05-25 21:15:47 | INFO     | __main__:run:155 - Application shutting down
+2025-05-27 23:42:37 | INFO     | app_logger.log_manager:_setup_logging:68 - Logging system initialized
+2025-05-27 23:42:37 | INFO     | __main__:setup_logging:45 - Starting ChaOffice application...
+2025-05-27 23:42:37 | INFO     | core.config_manager:_load_config:65 - Configuration loaded from instance_settings.json
+2025-05-27 23:42:37 | INFO     | local_db.local_db_manager:_create_tables:51 - Database tables created/verified
+2025-05-27 23:42:37 | INFO     | local_db.local_db_manager:__init__:45 - Local database initialized at instance/chaoffice.db
+2025-05-27 23:42:37 | WARNING  | api_client.auth_api_client:__init__:27 - Auth API client not initialized - invalid Supabase configuration
+2025-05-27 23:42:37 | WARNING  | api_client.product_api_client:__init__:27 - Product API client not initialized - invalid Supabase configuration
+2025-05-27 23:42:37 | INFO     | api_client.sync_manager:__init__:26 - Sync manager initialized
+2025-05-27 23:42:37 | INFO     | business_logic.auth_service:__init__:25 - Authentication service initialized
+2025-05-27 23:42:37 | INFO     | business_logic.product_service:__init__:23 - Product service initialized
+2025-05-27 23:42:37 | INFO     | qml_handlers.qml_bridge:__init__:370 - QML Bridge initialized successfully
+2025-05-27 23:42:37 | INFO     | __main__:setup_services:74 - All services initialized successfully
+2025-05-27 23:42:37 | INFO     | __main__:setup_qml_engine:93 - QML engine configured successfully
+2025-05-27 23:42:38 | INFO     | __main__:load_qml:113 - QML loaded successfully
+2025-05-27 23:42:38 | INFO     | __main__:run:143 - Application started successfully
+2025-05-27 23:42:54 | INFO     | __main__:run:155 - Application shutting down
